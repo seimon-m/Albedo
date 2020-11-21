@@ -11,6 +11,7 @@
 		F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3E256970C400D93D27 /* ContentView.swift */; };
 		F4B3BE41256970C600D93D27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE40256970C600D93D27 /* Assets.xcassets */; };
 		F4B3BE44256970C600D93D27 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE43256970C600D93D27 /* Preview Assets.xcassets */; };
+		F4B3BE532569942F00D93D27 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE522569942F00D93D27 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		F4B3BE40256970C600D93D27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4B3BE43256970C600D93D27 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4B3BE45256970C600D93D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4B3BE522569942F00D93D27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */,
 				F4B3BE3E256970C400D93D27 /* ContentView.swift */,
+				F4B3BE522569942F00D93D27 /* MapView.swift */,
 				F4B3BE40256970C600D93D27 /* Assets.xcassets */,
 				F4B3BE45256970C600D93D27 /* Info.plist */,
 				F4B3BE42256970C600D93D27 /* Preview Content */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */,
+				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
