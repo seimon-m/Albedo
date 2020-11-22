@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  Albedo
+//
+//  Created by Simon Müller on 21.11.20.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+CONTENTFUL_SPACE_ID=m9bx0k4x0bj8
+CONTENTFUL_DELIVERY_TOKEN=hQImfhppVvqnxuVVxJCcY0mPWYLnUsnqm8RYQoieZRg

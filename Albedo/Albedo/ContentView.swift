@@ -20,7 +20,7 @@ struct ContentView: View {
                         Image("suche")
                         Text("Suche")
                     }.tag(1)
-                Text("Profil View")
+                TestContentful()
                     .tabItem {
                         Image("profil")
                         Text("Profil")
