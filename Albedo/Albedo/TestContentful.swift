@@ -20,8 +20,7 @@ struct TestContentful : View {
 
 public class ContentfulFetcher: ObservableObject {
 
-    @Published var titles = [Test]()
-    var testArray = [Test]()
+    @Published var titles = [String]()
     
 
     init() {
@@ -31,7 +30,7 @@ public class ContentfulFetcher: ObservableObject {
 
         
     }
-    func fetch() -> [Test] {
+    func fetch() {
         let contentTypeClasses: [EntryDecodable.Type] = [
             Test.self
         ]
@@ -48,7 +47,6 @@ public class ContentfulFetcher: ObservableObject {
             case .success(let things):
                 guard let firstThing = things.items.first else { return }
                 print(firstThing.title)
-                titles = things.items
             case .failure(let error):
                 print("Oh no something went wrong: \(error)")
             }

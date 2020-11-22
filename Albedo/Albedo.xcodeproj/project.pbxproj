@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */; };
 		F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3E256970C400D93D27 /* ContentView.swift */; };
 		F4B3BE41256970C600D93D27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE40256970C600D93D27 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F4B3BE39256970C400D93D27 /* Albedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbedoApp.swift; sourceTree = "<group>"; };
 		F4B3BE3E256970C400D93D27 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				F4B3BE40256970C600D93D27 /* Assets.xcassets */,
 				F4B3BE45256970C600D93D27 /* Info.plist */,
 				F4B3BE42256970C600D93D27 /* Preview Content */,
+				F4865C6A256A8F000081814F /* Contentful.swift */,
 			);
 			path = Albedo;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4865C6B256A8F000081814F /* Contentful.swift in Sources */,
 				F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */,
 				F4B3BE5E2569C10300D93D27 /* TestContentful.swift in Sources */,
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
