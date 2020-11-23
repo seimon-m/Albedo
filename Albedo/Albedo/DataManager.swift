@@ -71,29 +71,31 @@ class DataManager: ObservableObject {
         NSLog("Before Request")
         
         let url = "https://www.wgzimmer.ch/wgzimmer/search/mate.html?query=&priceMin=200&priceMax=1500&state=luzern&permanent=all&student=none&orderBy=%40sortDate&orderDir=descending&startSearchMate=true&wgStartSearch=true&start=0"
-        let htmlString = getHtmlString(url: url)
         
-        print("HTMLString: " + htmlString)
-        
-        NSLog("After Request")
-        
-        // Bearbeitung
-        
-        let leftStr = """
-        </script> <a href="/de/wgzimmer/search/mate/
-        """
-        let rightStr = """
-        "> <span class="create-date left-image-result">
-        """
-        let cleanupStr = """
-        " class="search-mate-entry-promoted
-        """
+        requestHtmlString(url: url) { (htmlString) -> () in
+            
+            NSLog("After Request")
+            
+            // Bearbeitung
+            let leftStr = """
+            </script> <a href="/de/wgzimmer/search/mate/
+            """
+            let rightStr = """
+            "> <span class="create-date left-image-result">
+            """
+            let cleanupStr = """
+            " class="search-mate-entry-promoted
+            """
 
-        let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
+            let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
+            
+            print(resultStrings.description)
+            
+            NSLog("After Edit")
+            
+        }
         
-        NSLog(resultStrings.description)
         
-        NSLog("After Edit")
     }
     
     func startSearch(region: String) {
@@ -108,17 +110,15 @@ class DataManager: ObservableObject {
         print(modified)
     }
     
-    func getHtmlString(url: String) -> String {
-        var htmlString = ""
+    func requestHtmlString(url: String, callback: @escaping (String) -> Void){
         AF.request(url).responseString { response in
             guard let str = response.value else{
                 print("Couldn't get htmlString")
                 return
             }
-            htmlString = str;
+            callback(str)
         }
-        return htmlString
-       
+
 //        let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
 //            guard let data = data else {
 //                print("data was nil")
