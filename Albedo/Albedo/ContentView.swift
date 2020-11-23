@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
             TabView {
-                Text("First ")
+                ScrapingView()
                     .tabItem {
                         Image("dating")
                         Text("WG-Dating")
