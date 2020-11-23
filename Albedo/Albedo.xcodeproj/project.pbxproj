@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72037D256B171F0002F11C /* ScrapingView.swift */; };
+		DD720384256BF8020002F11C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720383256BF8020002F11C /* SearchView.swift */; };
+		DD720387256BFA8C0002F11C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720386256BFA8C0002F11C /* DataManager.swift */; };
 		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */; };
 		F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3E256970C400D93D27 /* ContentView.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD72037D256B171F0002F11C /* ScrapingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapingView.swift; sourceTree = "<group>"; };
+		DD720383256BF8020002F11C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		DD720386256BFA8C0002F11C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F4B3BE39256970C400D93D27 /* Albedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbedoApp.swift; sourceTree = "<group>"; };
@@ -44,6 +50,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD720382256BF79D0002F11C /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				F4B3BE522569942F00D93D27 /* MapView.swift */,
+				DD720383256BF8020002F11C /* SearchView.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
 		F4B3BE30256970C400D93D27 = {
 			isa = PBXGroup;
 			children = (
@@ -67,11 +82,13 @@
 				F4B3BE5D2569C10300D93D27 /* TestContentful.swift */,
 				F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */,
 				F4B3BE3E256970C400D93D27 /* ContentView.swift */,
-				F4B3BE522569942F00D93D27 /* MapView.swift */,
+				DD720382256BF79D0002F11C /* SearchView */,
 				F4B3BE40256970C600D93D27 /* Assets.xcassets */,
 				F4B3BE45256970C600D93D27 /* Info.plist */,
 				F4B3BE42256970C600D93D27 /* Preview Content */,
 				F4865C6A256A8F000081814F /* Contentful.swift */,
+				DD72037D256B171F0002F11C /* ScrapingView.swift */,
+				DD720386256BFA8C0002F11C /* DataManager.swift */,
 			);
 			path = Albedo;
 			sourceTree = "<group>";
@@ -162,7 +179,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4865C6B256A8F000081814F /* Contentful.swift in Sources */,
+				DD720387256BFA8C0002F11C /* DataManager.swift in Sources */,
 				F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */,
+				DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */,
+				DD720384256BF8020002F11C /* SearchView.swift in Sources */,
 				F4B3BE5E2569C10300D93D27 /* TestContentful.swift in Sources */,
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */,
