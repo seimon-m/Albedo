@@ -67,6 +67,46 @@
 			path = SearchView;
 			sourceTree = "<group>";
 		};
+		DDC3A535256D81D400CADA32 /* DatingView */ = {
+			isa = PBXGroup;
+			children = (
+				F48E346E256D5F35004DC3EA /* ImageCardView.swift */,
+				F48E3471256D6829004DC3EA /* DatingView.swift */,
+			);
+			path = DatingView;
+			sourceTree = "<group>";
+		};
+		DDC3A537256D826400CADA32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */,
+				F4B3BE3E256970C400D93D27 /* ContentView.swift */,
+				DDC3A538256D82CD00CADA32 /* Tests */,
+				DDC3A535256D81D400CADA32 /* DatingView */,
+				DD720382256BF79D0002F11C /* SearchView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DDC3A538256D82CD00CADA32 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DD72037D256B171F0002F11C /* ScrapingView.swift */,
+				F4B3BE5D2569C10300D93D27 /* TestContentful.swift */,
+				F4865C6A256A8F000081814F /* Contentful.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DDC3A539256D82F100CADA32 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DD720386256BFA8C0002F11C /* DataManager.swift */,
+				DD72038D256C88180002F11C /* Flat.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		F4B3BE30256970C400D93D27 = {
 			isa = PBXGroup;
 			children = (
@@ -87,19 +127,11 @@
 		F4B3BE3B256970C400D93D27 /* Albedo */ = {
 			isa = PBXGroup;
 			children = (
-				F4B3BE5D2569C10300D93D27 /* TestContentful.swift */,
-				F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */,
-				F4B3BE3E256970C400D93D27 /* ContentView.swift */,
-				DD720382256BF79D0002F11C /* SearchView */,
+				DDC3A539256D82F100CADA32 /* Data */,
+				DDC3A537256D826400CADA32 /* Views */,
 				F4B3BE40256970C600D93D27 /* Assets.xcassets */,
 				F4B3BE45256970C600D93D27 /* Info.plist */,
 				F4B3BE42256970C600D93D27 /* Preview Content */,
-				F4865C6A256A8F000081814F /* Contentful.swift */,
-				DD72037D256B171F0002F11C /* ScrapingView.swift */,
-				DD720386256BFA8C0002F11C /* DataManager.swift */,
-				DD72038D256C88180002F11C /* Flat.swift */,
-				F48E346E256D5F35004DC3EA /* ImageCardView.swift */,
-				F48E3471256D6829004DC3EA /* DatingView.swift */,
 			);
 			path = Albedo;
 			sourceTree = "<group>";

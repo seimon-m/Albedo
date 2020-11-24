@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct SearchView: View {
+    @ObservedObject var dataManager = DataManager.shared
     var body: some View {
         VStack {
             Text("Search")
             MapView()
+            List(dataManager.searchResults){ flat in
+                Text(flat.title)
+            }
         }
     }
 }

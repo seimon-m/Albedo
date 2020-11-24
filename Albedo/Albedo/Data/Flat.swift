@@ -9,7 +9,10 @@ import Foundation
 import CoreLocation
 import CoreImage
 
-struct Flat {
+struct Flat : Identifiable {
+    
+    let id = UUID()
+    
     let url: String
     
     var title: String {

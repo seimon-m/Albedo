@@ -10,12 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
             TabView {
-                ScrapingView()
+                DatingView()
                     .tabItem {
                         Image("dating")
                         Text("WG-Dating")
                     }.tag(0)
-                MapView()
+                SearchView()
                     .tabItem {
                         Image("suche")
                         Text("Suche")
