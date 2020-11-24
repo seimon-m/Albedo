@@ -12,7 +12,9 @@ import CoreImage
 struct Flat {
     let url: String
     
-    let title: String
+    var title: String {
+        return "Zimmer \(district)"
+    }
     let roomDescription: String
     let aboutUsDescription: String
     let aboutYouDescription: String
@@ -20,16 +22,21 @@ struct Flat {
     let street: String
     let zip: Int
     let place: String
+    let district: String
     
-    var adress: String { // Computed Property Strasse und PLZ
+    var adress: String {
         return "\(street), \(zip) \(place)"
     }
     
-    let coordinate: CLLocationCoordinate2D
+//    let coordinate: CLLocationCoordinate2D -> über Apple Maps API laden
+
     
     let price: Int
-    let startDate: Date
-    let isPerpetual: Bool
+    let startDate: String
+    let termination: String
+    var isPerpetual : Bool {
+        return termination.contains("Unbefristet") ? true : false;
+    }
     
     let imageURLs: [String]
 //    let images: [CGImage]

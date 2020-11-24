@@ -8,56 +8,12 @@
 import Foundation
 import Alamofire
 import SwiftSoup
-import MapKit
 
 extension String {
-    func indices(of occurrence: String) -> [Int] {
-        var indices = [Int]()
-        var position = startIndex
-        while let range = range(of: occurrence, range: position..<endIndex) {
-            let i = distance(from: startIndex,
-                             to: range.lowerBound)
-            indices.append(i)
-            let offset = occurrence.distance(from: occurrence.startIndex,
-                                             to: occurrence.endIndex) - 1
-            guard let after = index(range.lowerBound,
-                                    offsetBy: offset,
-                                    limitedBy: endIndex) else {
-                break
-            }
-            position = index(after: after)
-        }
-        return indices
-    }
     
-    func ranges(of searchString: String) -> [Range<String.Index>] {
-        let _indices = indices(of: searchString)
-        let count = searchString.count
-        return _indices.map({ index(startIndex, offsetBy: $0)..<index(startIndex, offsetBy: $0+count) })
-    }
-    
-    func extractAll(left: String, right: String) -> [String]{
-        let leftRanges = self.ranges(of: left)
-//        print("leftRanges: " + leftRanges.description)
-        let rightRanges = self.ranges(of: right)
-//        print("rightRanges: " + rightRanges.description)
-        
-        var result:[String] = []
-        
-        let up = min(leftRanges.count, rightRanges.count) - 1
-        for i in 0...up{
-            let rightRange = rightRanges[i]
-            let leftRange = leftRanges[i]
-            let rangeOfTheData = leftRange.upperBound..<rightRange.lowerBound
-            let grabbed = self[rangeOfTheData]
-            result.append(String(grabbed))
-        }
-        return result;
-    }
-    
-    func clean(removeStrings:[String]) -> String{
+    func clean(remove:[String]) -> String{
         var me = self
-        for removeString in removeStrings{
+        for removeString in remove{
             me = me.replacingOccurrences(of: removeString, with: "")
         }
         return me
@@ -69,128 +25,112 @@ extension String {
     }
 }
 
-
-
-
-
 class DataManager: ObservableObject {
     
-    @Published var searchResults: [String]?
+    @Published var searchResults: [Flat] = []
     
     static let shared = DataManager()
     
     init() {
-        NSLog("Before Request")
+        NSLog("Before Query")
         
-        let url = "https://www.wgzimmer.ch/wgzimmer/search/mate.html?query=&priceMin=200&priceMax=1500&state=luzern&permanent=all&student=none&orderBy=%40sortDate&orderDir=descending&startSearchMate=true&wgStartSearch=true&start=0"
+        var params = QueryParameters()
+        params.state = "luzern"
+        startQuery(parameters: params)
         
-        requestHtmlString(url: url) { (htmlString) -> () in
-            
-            NSLog("After Request")
-            
-            // Bearbeitung
-            let leftStr = """
-            </script> <a href="/de/wgzimmer/search/mate/
-            """
-            let rightStr = """
-            "> <span class="create-date left-image-result">
-            """
-            let cleanupStr = """
-            " class="search-mate-entry-promoted
-            """
-            
-            let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
-            NSLog("After Edit")
-            
-            for resultString in resultStrings{
-                let roomUrl = "https://www.wgzimmer.ch/de/wgzimmer/search/mate/" + resultString
-                self.requestHtmlString(url: roomUrl) { (html) -> () in
-                    do{
-                        
-                        print(roomUrl)
-
-                        let doc = try SwiftSoup.parse(html)
-                        let adressInfos : Elements = try doc.select("div.wrap.col-wrap.adress-region p")
-                        
-                        let street = try adressInfos[1].text().clean(removeStrings: ["Adresse "])
-                        print(street)
-                        let zipAndPlace = try adressInfos[2].text().clean(removeStrings: ["Ort "]).components(separatedBy: " ")
-                        let zip : Int = Int(zipAndPlace[0])!
-                        let place : String = zipAndPlace[1]
-                        print(zip)
-                        print(place)
-                        
-                        let roomDescriptionElems : Elements = try doc.select("div.wrap.col-wrap.mate-content.nbb p:not(strong)")
-                        let roomDescription = try roomDescriptionElems[0].text().replaceFirstOccurrence(of: "Das Zimmer ist", with: "Das Zimmer ist ")
-                        print(roomDescription)
-                        
-//                        let flat = Flat()
+    }
     
-                    }catch{
-                        print("Couldn't parse html")
-                    }
+    struct QueryParameters: Encodable {
+        var query = ""
+        var priceMin = 200
+        var priceMax = 1500
+        var state = "luzern"
+        var permanent = "all"
+        var student = "none"
+        var country = "ch"
+        var orderBy = "@sortDate"
+        var orderDir = "descending"
+        var startSearchMate = true
+        var wgStartSearch = true
+        var start = 0
+    }
+    
+    func startQuery(parameters: QueryParameters)  {
+        let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
+        
+        AF.request(baseURL, parameters: parameters)
+            .responseString { response in
+                guard let html = response.value else{
+                    print("Couldn't get flat htmlString")
+                    return
                 }
+                do{
+                    let doc = try SwiftSoup.parse(html)
+                    let links = try doc.select("li.search-result-entry.search-mate-entry a")
+                    for i in stride(from: 1, to: links.count, by: 2) {
+                        let flatURL = try "https://www.wgzimmer.ch" + links[i].attr("href")
+                        self.loadFlatData(flatURL: flatURL)
+//                        print(flatURL)
+//                        self.searchResults?.append(" ")
+                    }
+                    if(links.count == 78){
+                        var params = parameters
+                        params.start += 39
+                        self.startQuery(parameters: params)
+                    }
+                }catch{
+                    print("Couldn't parse html")
+                }
+                
+                
             }
-            
-            
-            
-        }
-        
-        
     }
     
-    func startSearch(region: String) {
+    func loadFlatData(flatURL: String){
         
-    }
-    
-    func test() {
-        let str = "hellou i rule over all the data"
-        print(str)
-        let modified = str.clean(removeStrings: ["all ", "rule ", "over "])
-        print(str)
-        print(modified)
-    }
-    
-    func requestHtmlString(url: String, callback: @escaping (String) -> Void){
-        AF.request(url).responseString { response in
-            guard let str = response.value else{
-                print("Couldn't get htmlString")
+        AF.request(flatURL).responseString { response in
+            guard let html = response.value else{
+                print("Couldn't get flat htmlString")
                 return
             }
-            callback(str)
-        }
+            do{
+//                print(flatURL)
+
+                let doc = try SwiftSoup.parse(html)
+                let adressInfos : Elements = try doc.select("div.wrap.col-wrap.adress-region p")
+                
+                let street = try adressInfos[1].text().clean(remove: ["Adresse "])
+                let zipAndPlace = try adressInfos[2].text().clean(remove: ["Ort "]).components(separatedBy: " ")
+                let zip : Int = Int(zipAndPlace[0]) ?? 0
+                let place : String = zipAndPlace[1]
+                var district = try adressInfos[3].text().clean(remove: ["Kreis / Quartier "])
+                if(district.contains("In der Nähe")){
+                    district = place
+                }
+            
+                let roomDescriptionElems : Elements = try doc.select("div.wrap.col-wrap.mate-content.nbb p")
+                let roomDescription = try roomDescriptionElems[0].text().replaceFirstOccurrence(of: "Das Zimmer ist", with: "Das Zimmer ist ")
+                
+                let aboutUsDescription : String = try doc.select("div.wrap.col-wrap.person-content p")[0].text()
+                let aboutYouDescription : String = try doc.select("div.wrap.col-wrap.room-content p")[0].text()
+                
+                let datePerpetualCost = try doc.select("div.wrap.col-wrap.date-cost p")
+                let startDate = try datePerpetualCost[0].text().clean(remove: ["Ab dem "])
+                let termination = try datePerpetualCost[1].text().clean(remove: ["Bis "])
+                let priceStr = try datePerpetualCost[2].text().clean(remove: ["Miete / Monat", "sFr.",".–", " ", "'"])
+                let price : Int = Int(priceStr) ?? 0
         
-        //        let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-        //            guard let data = data else {
-        //                print("data was nil")
-        //                return
-        //            }
-        //            guard let htmlString = String(data: data, encoding: .utf8)
-        //            else {
-        //                print("couldn't cast data into String")
-        //                return
-        //            }
-        //
-        //            NSLog("Got Result")
-        //
-        //            let leftStr = """
-        //            </script> <a href="/de/wgzimmer/search/mate/
-        //            """
-        //            let rightStr = """
-        //            "> <span class="create-date left-image-result">
-        //            """
-        //
-        //            let cleanupStr = """
-        //            " class="search-mate-entry-promoted
-        //            """
-        //
-        //            let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
-        //
-        //            print(resultStrings)
-        //            NSLog("After Scrape")
-        //        }
-        //        task.resume()
+                
+                
+                let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, imageURLs: [""])
+                
+                self.searchResults.append(flat)
+                
+                print(flat.title)
+                print(self.searchResults.count)
+            }catch{
+                print("Couldn't parse html")
+            }
+        }
     }
-    
-    //    func extractAll(htmlString, leftSideString, rightSideString)
 }
