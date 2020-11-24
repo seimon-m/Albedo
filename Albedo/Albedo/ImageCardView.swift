@@ -22,7 +22,7 @@ struct ImageCardView: View {
                 .cornerRadius(5.0)
                 .font(.body)
                 .offset(x: 15.0, y: -15.0)
-        }.cornerRadius(15).padding()
+        }.cornerRadius(15)
     }
 }
 

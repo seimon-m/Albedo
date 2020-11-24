@@ -14,6 +14,7 @@
 		DD72038E256C88190002F11C /* Flat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72038D256C88180002F11C /* Flat.swift */; };
 		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E346E256D5F35004DC3EA /* ImageCardView.swift */; };
+		F48E3472256D6829004DC3EA /* DatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E3471256D6829004DC3EA /* DatingView.swift */; };
 		F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */; };
 		F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3E256970C400D93D27 /* ContentView.swift */; };
 		F4B3BE41256970C600D93D27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE40256970C600D93D27 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		DD72038D256C88180002F11C /* Flat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flat.swift; sourceTree = "<group>"; };
 		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F48E346E256D5F35004DC3EA /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
+		F48E3471256D6829004DC3EA /* DatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingView.swift; sourceTree = "<group>"; };
 		F4B3BE39256970C400D93D27 /* Albedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbedoApp.swift; sourceTree = "<group>"; };
 		F4B3BE3E256970C400D93D27 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				DD720386256BFA8C0002F11C /* DataManager.swift */,
 				DD72038D256C88180002F11C /* Flat.swift */,
 				F48E346E256D5F35004DC3EA /* ImageCardView.swift */,
+				F48E3471256D6829004DC3EA /* DatingView.swift */,
 			);
 			path = Albedo;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				DD720387256BFA8C0002F11C /* DataManager.swift in Sources */,
 				F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */,
 				F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */,
+				F48E3472256D6829004DC3EA /* DatingView.swift in Sources */,
 				DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */,
 				DD72038E256C88190002F11C /* Flat.swift in Sources */,
 				DD720384256BF8020002F11C /* SearchView.swift in Sources */,
