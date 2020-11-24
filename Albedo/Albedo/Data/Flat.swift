@@ -40,7 +40,8 @@ struct Flat : Identifiable {
     var isPerpetual : Bool {
         return termination.contains("Unbefristet") ? true : false;
     }
+    let lowResImageURLs: [String]
+    let highResImageURLs: [String]
     
-    let imageURLs: [String]
 //    let images: [CGImage]
 }

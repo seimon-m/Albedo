@@ -79,7 +79,7 @@ class DataManager: ObservableObject {
                         self.startQuery(parameters: params)
                     }
                 }catch{
-                    print("Couldn't parse html")
+                    print("Couldn't parse html of query: " + parameters.description)
                 }
                 
                 
@@ -119,18 +119,43 @@ class DataManager: ObservableObject {
                 let termination = try datePerpetualCost[1].text().clean(remove: ["Bis "])
                 let priceStr = try datePerpetualCost[2].text().clean(remove: ["Miete / Monat", "sFr.",".–", " ", "'"])
                 let price : Int = Int(priceStr) ?? 0
-        
                 
+                let imageScriptsElems = try doc.select("div.image script")
+                var lowResImgURLs : [String] = []
+                var highResImgURLs : [String] = []
                 
-                let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, imageURLs: [""])
+                for script in imageScriptsElems{
+                    let id = self.parseImgIdFromScript(script: try script.html())
+                    let lowResURL = "https://img.wgzimmer.ch/.imaging/wgzimmer_medium-jpg/dam/" + id + "/temp.jpg"
+                    let highResURL  = "https://img.wgzimmer.ch/.imaging/wgzimmer_shadowbox-jpg/dam/" + id + "/temp.jpg"
+                    lowResImgURLs.append(lowResURL)
+                    highResImgURLs.append(highResURL)
+                }
+
+                let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
                 self.searchResults.append(flat)
                 
-                print(flat.title)
                 print(self.searchResults.count)
             }catch{
-                print("Couldn't parse html")
+                print("Couldn't parse html of " + flatURL)
             }
         }
+    }
+    
+    private func parseImgIdFromScript (script : String) -> String {
+        
+        let leftString = """
+        xhrRenderImage("
+        """
+        let rightString = """
+        ", "wgzimmer_medium"
+        """
+        
+        let leftSideRange = script.range(of: leftString)!
+        let rightSideRange = script.range(of: rightString)!
+        let rangeOfTheData = leftSideRange.upperBound..<rightSideRange.lowerBound
+        
+        return String(script[rangeOfTheData])
     }
 }
