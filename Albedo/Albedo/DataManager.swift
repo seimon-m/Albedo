@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import SwiftSoup
+import MapKit
 
 extension String {
     func indices(of occurrence: String) -> [Int] {
@@ -21,7 +23,7 @@ extension String {
             guard let after = index(range.lowerBound,
                                     offsetBy: offset,
                                     limitedBy: endIndex) else {
-                                        break
+                break
             }
             position = index(after: after)
         }
@@ -36,11 +38,16 @@ extension String {
     
     func extractAll(left: String, right: String) -> [String]{
         let leftRanges = self.ranges(of: left)
+//        print("leftRanges: " + leftRanges.description)
         let rightRanges = self.ranges(of: right)
+//        print("rightRanges: " + rightRanges.description)
         
         var result:[String] = []
-        for (index, leftRange) in leftRanges.enumerated() {
-            let rightRange = rightRanges[index]
+        
+        let up = min(leftRanges.count, rightRanges.count) - 1
+        for i in 0...up{
+            let rightRange = rightRanges[i]
+            let leftRange = leftRanges[i]
             let rangeOfTheData = leftRange.upperBound..<rightRange.lowerBound
             let grabbed = self[rangeOfTheData]
             result.append(String(grabbed))
@@ -54,6 +61,11 @@ extension String {
             me = me.replacingOccurrences(of: removeString, with: "")
         }
         return me
+    }
+    
+    func replaceFirstOccurrence(of string: String, with replacement: String) -> String {
+        guard let range = self.range(of: string) else { return self }
+        return replacingCharacters(in: range, with: replacement)
     }
 }
 
@@ -86,12 +98,41 @@ class DataManager: ObservableObject {
             let cleanupStr = """
             " class="search-mate-entry-promoted
             """
-
+            
             let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
-            
-            print(resultStrings.description)
-            
             NSLog("After Edit")
+            
+            for resultString in resultStrings{
+                let roomUrl = "https://www.wgzimmer.ch/de/wgzimmer/search/mate/" + resultString
+                self.requestHtmlString(url: roomUrl) { (html) -> () in
+                    do{
+                        
+                        print(roomUrl)
+
+                        let doc = try SwiftSoup.parse(html)
+                        let adressInfos : Elements = try doc.select("div.wrap.col-wrap.adress-region p")
+                        
+                        let street = try adressInfos[1].text().clean(removeStrings: ["Adresse "])
+                        print(street)
+                        let zipAndPlace = try adressInfos[2].text().clean(removeStrings: ["Ort "]).components(separatedBy: " ")
+                        let zip : Int = Int(zipAndPlace[0])!
+                        let place : String = zipAndPlace[1]
+                        print(zip)
+                        print(place)
+                        
+                        let roomDescriptionElems : Elements = try doc.select("div.wrap.col-wrap.mate-content.nbb p:not(strong)")
+                        let roomDescription = try roomDescriptionElems[0].text().replaceFirstOccurrence(of: "Das Zimmer ist", with: "Das Zimmer ist ")
+                        print(roomDescription)
+                        
+//                        let flat = Flat()
+    
+                    }catch{
+                        print("Couldn't parse html")
+                    }
+                }
+            }
+            
+            
             
         }
         
@@ -118,38 +159,38 @@ class DataManager: ObservableObject {
             }
             callback(str)
         }
-
-//        let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-//            guard let data = data else {
-//                print("data was nil")
-//                return
-//            }
-//            guard let htmlString = String(data: data, encoding: .utf8)
-//            else {
-//                print("couldn't cast data into String")
-//                return
-//            }
-//
-//            NSLog("Got Result")
-//
-//            let leftStr = """
-//            </script> <a href="/de/wgzimmer/search/mate/
-//            """
-//            let rightStr = """
-//            "> <span class="create-date left-image-result">
-//            """
-//
-//            let cleanupStr = """
-//            " class="search-mate-entry-promoted
-//            """
-//
-//            let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
-//
-//            print(resultStrings)
-//            NSLog("After Scrape")
-//        }
-//        task.resume()
+        
+        //        let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+        //            guard let data = data else {
+        //                print("data was nil")
+        //                return
+        //            }
+        //            guard let htmlString = String(data: data, encoding: .utf8)
+        //            else {
+        //                print("couldn't cast data into String")
+        //                return
+        //            }
+        //
+        //            NSLog("Got Result")
+        //
+        //            let leftStr = """
+        //            </script> <a href="/de/wgzimmer/search/mate/
+        //            """
+        //            let rightStr = """
+        //            "> <span class="create-date left-image-result">
+        //            """
+        //
+        //            let cleanupStr = """
+        //            " class="search-mate-entry-promoted
+        //            """
+        //
+        //            let resultStrings = htmlString.extractAll(left: leftStr, right: rightStr).map{ $0.clean(removeStrings: [cleanupStr])}
+        //
+        //            print(resultStrings)
+        //            NSLog("After Scrape")
+        //        }
+        //        task.resume()
     }
     
-//    func extractAll(htmlString, leftSideString, rightSideString)
+    //    func extractAll(htmlString, leftSideString, rightSideString)
 }
