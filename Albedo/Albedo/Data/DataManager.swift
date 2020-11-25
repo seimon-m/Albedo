@@ -55,6 +55,8 @@ class DataManager: ObservableObject {
         var start = 0
     }
     
+    
+    
     func startQuery(parameters: QueryParameters)  {
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
         
@@ -77,9 +79,12 @@ class DataManager: ObservableObject {
                         var params = parameters
                         params.start += 39
                         self.startQuery(parameters: params)
+                    }else{
+                        print("Parsing complete")
                     }
                 }catch{
-                    print("Couldn't parse html of query: " + parameters.description)
+                    print("Couldn't parse html of query: ")
+                    print(parameters)
                 }
                 
                 
@@ -137,6 +142,7 @@ class DataManager: ObservableObject {
                 self.searchResults.append(flat)
                 
                 print(self.searchResults.count)
+//                print(flat)
             }catch{
                 print("Couldn't parse html of " + flatURL)
             }

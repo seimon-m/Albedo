@@ -34,9 +34,8 @@ struct MapView: View {
                 .cornerRadius(10)
             }
         }
-        .frame(height: 300)
-        .cornerRadius(20)
-        .padding()
+        .frame(height: 200)
+        .cornerRadius(15)
     }
 }
 

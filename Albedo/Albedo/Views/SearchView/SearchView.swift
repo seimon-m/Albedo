@@ -8,15 +8,28 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var dataManager = DataManager.shared
+    @ObservedObject var data = DataManager.shared
     var body: some View {
-        VStack {
-            Text("Search")
-            MapView()
-            List(dataManager.searchResults){ flat in
-                Text(flat.title)
-            }
+        
+        ZStack {
+            Color(red: 0.958, green: 0.958, blue: 0.958)
+                .ignoresSafeArea()
+            VStack {
+                Text("Search")
+                    .font(.title)
+                Text(data.searchResults.count.description + " Resultate")
+                    .font(.subheadline)
+                MapView()
+                ScrollView {
+                    LazyVStack{
+                        ForEach(data.searchResults){ flat in
+                            CardView(flat: flat).padding(.bottom)
+                        }
+                    }
+                }
+            }.padding()
         }
+        
     }
 }
 
