@@ -61,7 +61,7 @@ class DataManager: ObservableObject {
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
         
         AF.request(baseURL, parameters: parameters)
-            .responseString { response in
+            .responseString(queue: DispatchQueue.global()) { response in
                 guard let html = response.value else{
                     print("Couldn't get flat htmlString")
                     return
@@ -92,8 +92,7 @@ class DataManager: ObservableObject {
     }
     
     func loadFlatData(flatURL: String){
-        
-        AF.request(flatURL).responseString { response in
+        AF.request(flatURL).responseString(queue: DispatchQueue.global()) { response in
             guard let html = response.value else{
                 print("Couldn't get flat htmlString")
                 return
@@ -139,9 +138,13 @@ class DataManager: ObservableObject {
 
                 let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
-                self.searchResults.append(flat)
-                
                 print(self.searchResults.count)
+                
+                DispatchQueue.main.async {
+                    self.searchResults.append(flat)
+                }
+                
+                
 //                print(flat)
             }catch{
                 print("Couldn't parse html of " + flatURL)
