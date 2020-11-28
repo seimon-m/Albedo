@@ -22,9 +22,13 @@ struct DatingView: View {
             
                     ZStack {
                         ForEach(0..<data.searchResults.count, id: \.self) { index in
-                            ImageCardView(flat: data.searchResults[index])
+                            ImageCardView(flat: data.searchResults[index]) {
+                                withAnimation {
+                                    self.removeCard(at: index)
+                                }
+                            }
                                 .stacked(at: index, in: data.searchResults.count)
-                        }
+                        }.padding()
             }
             
             HStack {
@@ -39,8 +43,9 @@ struct DatingView: View {
             
         }
         .padding(.horizontal)
-        
-        
+    }
+    func removeCard(at index: Int) {
+        // Remove cards from Array
     }
 }
 

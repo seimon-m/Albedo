@@ -9,11 +9,15 @@ import SwiftUI
 
 struct ImageCardView: View {
     var flat: Flat
+    @State private var offset = CGSize.zero
+    var removal: (() -> Void)? = nil
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)){
             Image("wg1")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .cornerRadius(15)
+                .shadow(radius: 10)
             Text(String(flat.price) + " Fr.")
                 .padding(4)
                 .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 1.0))
@@ -21,7 +25,22 @@ struct ImageCardView: View {
                 .cornerRadius(5.0)
                 .font(.body)
                 .offset(x: 15.0, y: -15.0)
-        }.cornerRadius(15)
+        }
+        .frame(width: 350, height: 350)
+        .rotationEffect(.degrees(Double(offset.width / 5)))
+        .offset(x: offset.width * 5, y: 0)
+        .opacity(2 - Double(abs(offset.width / 50)))
+        .gesture(DragGesture().onChanged { gesture in
+            self.offset = gesture.translation
+        }
+        .onEnded { _ in
+            if abs(self.offset.width) > 100 {
+                self.removal?() // remove Card
+            } else {
+                self.offset = .zero
+            }
+        })
+
     }
 }
 
