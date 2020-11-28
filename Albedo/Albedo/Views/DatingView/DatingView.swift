@@ -7,11 +7,26 @@
 
 import SwiftUI
 
+extension View {
+    func stacked(at position: Int, in total: Int) -> some View {
+        let offset = CGFloat(total - position)
+        return self.offset(CGSize(width: 0, height: offset * -10))
+    }
+}
+
 struct DatingView: View {
+    @ObservedObject var data = DataManager.shared
     var body: some View {
         VStack(alignment: .leading, spacing: 50) {
             Text("Date deine WG").font(.largeTitle).bold()
-            ImageCardView(image: UIImage(named: "wg1")!, price: "370 Fr.")
+            
+                    ZStack {
+                        ForEach(0..<data.searchResults.count, id: \.self) { index in
+                            ImageCardView(flat: data.searchResults[index])
+                                .stacked(at: index, in: data.searchResults.count)
+                        }
+            }
+            
             HStack {
                 Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
                     Text("Dismiss")
