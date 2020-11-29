@@ -13,11 +13,18 @@ struct ImageCardView: View {
     var removal: (() -> Void)? = nil
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)){
-            Image("wg1")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(15)
-                .shadow(radius: 10)
+            if(flat.hasImages){
+                let url = URL(string: flat.highResImageURLs[0])!
+                AsyncImage(url: url)
+                    .frame(width: 350 ,height: 300)
+                    .cornerRadius(15)
+                    .shadow(radius: 10)
+            }else{
+                Image("noPicturePlaceholder")
+                    .frame(width: 350 ,height: 300)
+                    .cornerRadius(15)
+                    .shadow(radius: 10)
+            }
             Text(String(flat.price) + " Fr.")
                 .padding(4)
                 .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 1.0))

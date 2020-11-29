@@ -21,14 +21,16 @@ struct DatingView: View {
             Text("Date deine WG").font(.largeTitle).bold()
             
                     ZStack {
-                        ForEach(0..<data.searchResults.count, id: \.self) { index in
-                            ImageCardView(flat: data.searchResults[index]) {
-                                withAnimation {
-                                    self.removeCard(at: index)
+                        if data.searchResults.count > 5 {
+                            ForEach(0...5, id: \.self) { index in
+                                ImageCardView(flat: data.searchResults[index]) {
+                                    withAnimation {
+                                        self.removeCard(at: index)
+                                    }
                                 }
-                            }
-                                .stacked(at: index, in: data.searchResults.count)
-                        }.padding()
+                                    .stacked(at: index, in: data.searchResults.count)
+                            }.padding()
+                        }
             }
             
             HStack {
@@ -42,8 +44,13 @@ struct DatingView: View {
             }
             
         }
-        .padding(.horizontal)
+        .padding()
     }
+    
+//    init(<#parameters#>) {
+//        <#statements#>
+//    }
+    
     func removeCard(at index: Int) {
         // Remove cards from Array
     }
