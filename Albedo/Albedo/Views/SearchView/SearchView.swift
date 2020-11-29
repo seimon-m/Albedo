@@ -19,9 +19,11 @@ struct SearchView: View {
                     .font(.title)
                 Text(data.searchResults.count.description + " Resultate")
                     .font(.subheadline)
-                MapView()
                 ScrollView {
                     LazyVStack{
+                        MapView()
+                            .frame(height: 400)
+                            .padding(.bottom)
                         ForEach(data.searchResults){ flat in
                             CardView(flat: flat).padding(.bottom)
                         }

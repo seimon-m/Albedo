@@ -12,14 +12,29 @@ import SwiftUI
 struct CardView: View {
     let flat : Flat
     
+    
+    
     var body: some View {
 
         VStack(alignment: .leading) {
-            Image("wg1")
-                .resizable()
-                .scaledToFill()
-                .frame(height: 200)
-                .clipped()
+            
+            if(flat.highResImageURLs.count > 0){
+                let url = URL(string: flat.highResImageURLs[0])!
+                AsyncImage(url: url)
+                    .frame(height: 200)
+                    .clipped()
+            }else{
+//                Show Empty Placeholder Image
+            }
+            
+            
+            
+            
+//            Image("wg1")
+//                .resizable()
+//                .scaledToFill()
+//                .frame(height: 200)
+//                .clipped()
                 
             VStack(alignment: .leading) {
                 Text(String(flat.price)+".-")

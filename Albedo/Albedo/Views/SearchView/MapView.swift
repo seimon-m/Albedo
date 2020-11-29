@@ -34,7 +34,6 @@ struct MapView: View {
                 .cornerRadius(10)
             }
         }
-        .frame(height: 200)
         .cornerRadius(15)
     }
 }
