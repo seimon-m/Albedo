@@ -43,5 +43,9 @@ struct Flat : Identifiable {
     let lowResImageURLs: [String]
     let highResImageURLs: [String]
     
+    var hasImages: Bool{
+        return highResImageURLs.count > 0
+    }
+    
 //    let images: [CGImage]
 }

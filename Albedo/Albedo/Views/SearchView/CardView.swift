@@ -18,13 +18,17 @@ struct CardView: View {
 
         VStack(alignment: .leading) {
             
-            if(flat.highResImageURLs.count > 0){
+            if(flat.hasImages){
                 let url = URL(string: flat.highResImageURLs[0])!
                 AsyncImage(url: url)
                     .frame(height: 200)
                     .clipped()
             }else{
-//                Show Empty Placeholder Image
+                Image("noPicturePlaceholder")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 200)
+                    .clipped()
             }
             
             
