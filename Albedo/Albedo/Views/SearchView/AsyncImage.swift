@@ -18,8 +18,14 @@ struct AsyncImage: View {
                         .resizable()
                         .scaledToFill()
                 } else {
-                    Text("Lädt...")
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    VStack {
+                        Text("Lädt...")
+                            .font(.custom("DMSans-Regular", size: 18))
+                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .frame(maxHeight: .infinity, alignment: .center)
+                    .background(Color(red: 0.9, green: 0.9, blue: 0.9))
                 }
             }
         }

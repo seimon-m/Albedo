@@ -90,3 +90,5 @@ fastlane/test_output
 iOSInjectionProject/
 
 Albedo/.DS_Store
+
+Albedo/Albedo/Assets.xcassets/.DS_Store

@@ -16,7 +16,7 @@ struct CardView: View {
     
     var body: some View {
 
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             
             if(flat.hasImages){
                 let url = URL(string: flat.highResImageURLs[0])!
@@ -31,37 +31,49 @@ struct CardView: View {
                     .clipped()
             }
             
-            
-            
-            
-//            Image("wg1")
-//                .resizable()
-//                .scaledToFill()
-//                .frame(height: 200)
-//                .clipped()
-                
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(String(flat.price)+".-")
                     .foregroundColor(Color(red: 0, green: 0.749, blue: 0.514))
-                    .font(.title2)
+                    .font(.custom("DMSans-Regular", size: 22))
+
                     
                 Text(flat.title)
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .font(.custom("DMSans-Medium", size: 28))
                 HStack {
                     Image("location")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 20)
+                        .frame(height: 14)
                     Text(flat.place)
                         .lineLimit(1)
+                        .font(.custom("DMSans-Regular", size: 15))
+                        .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                 }.padding(0)
                 HStack() {
-                    Text(flat.startDate)
-                    Text(flat.termination)
-                        .lineLimit(1)
-                }
+                    HStack (){
+                        Image("date")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 19)
+                        Text(flat.startDate)
+                            .font(.custom("DMSans-Bold", size: 16))
+                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                    }.frame(width: 110, alignment: .topLeading)
+                    HStack {
+                        Image("termination")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 20)
+                        Text(flat.termination)
+                            .lineLimit(1)
+                            .font(.custom("DMSans-Bold", size: 16))
+                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                    }
+                }.padding(.top, 12)
+             
             }
             .padding()
+            .padding(.top, -4)
             
             
         }

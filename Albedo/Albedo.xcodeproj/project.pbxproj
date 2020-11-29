@@ -14,6 +14,12 @@
 		DD72038E256C88190002F11C /* Flat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72038D256C88180002F11C /* Flat.swift */; };
 		DD776FAD25732E1800242BD4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FAC25732E1800242BD4 /* ImageLoader.swift */; };
 		DD776FB025732E7300242BD4 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FAF25732E7300242BD4 /* AsyncImage.swift */; };
+		DD776FB92573D17300242BD4 /* DMSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB32573D17300242BD4 /* DMSans-MediumItalic.ttf */; };
+		DD776FBA2573D17300242BD4 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB42573D17300242BD4 /* DMSans-Bold.ttf */; };
+		DD776FBB2573D17300242BD4 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB52573D17300242BD4 /* DMSans-Regular.ttf */; };
+		DD776FBC2573D17300242BD4 /* DMSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB62573D17300242BD4 /* DMSans-BoldItalic.ttf */; };
+		DD776FBD2573D17300242BD4 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB72573D17300242BD4 /* DMSans-Medium.ttf */; };
+		DD776FBE2573D17300242BD4 /* DMSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */; };
 		DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3A53D256DBEF100CADA32 /* CardView.swift */; };
 		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E346E256D5F35004DC3EA /* ImageCardView.swift */; };
@@ -35,6 +41,12 @@
 		DD72038D256C88180002F11C /* Flat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flat.swift; sourceTree = "<group>"; };
 		DD776FAC25732E1800242BD4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		DD776FAF25732E7300242BD4 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		DD776FB32573D17300242BD4 /* DMSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		DD776FB42573D17300242BD4 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
+		DD776FB52573D17300242BD4 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Regular.ttf"; sourceTree = "<group>"; };
+		DD776FB62573D17300242BD4 /* DMSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		DD776FB72573D17300242BD4 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Medium.ttf"; sourceTree = "<group>"; };
+		DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Italic.ttf"; sourceTree = "<group>"; };
 		DDC3A53D256DBEF100CADA32 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F48E346E256D5F35004DC3EA /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
@@ -74,6 +86,19 @@
 				DD776FAF25732E7300242BD4 /* AsyncImage.swift */,
 			);
 			path = SearchView;
+			sourceTree = "<group>";
+		};
+		DD776FB22573D10E00242BD4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DD776FB42573D17300242BD4 /* DMSans-Bold.ttf */,
+				DD776FB62573D17300242BD4 /* DMSans-BoldItalic.ttf */,
+				DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */,
+				DD776FB72573D17300242BD4 /* DMSans-Medium.ttf */,
+				DD776FB32573D17300242BD4 /* DMSans-MediumItalic.ttf */,
+				DD776FB52573D17300242BD4 /* DMSans-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		DDC3A535256D81D400CADA32 /* DatingView */ = {
@@ -136,6 +161,7 @@
 		F4B3BE3B256970C400D93D27 /* Albedo */ = {
 			isa = PBXGroup;
 			children = (
+				DD776FB22573D10E00242BD4 /* Fonts */,
 				DDC3A539256D82F100CADA32 /* Data */,
 				DDC3A537256D826400CADA32 /* Views */,
 				F4B3BE40256970C600D93D27 /* Assets.xcassets */,
@@ -220,8 +246,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD776FBB2573D17300242BD4 /* DMSans-Regular.ttf in Resources */,
+				DD776FBD2573D17300242BD4 /* DMSans-Medium.ttf in Resources */,
+				DD776FB92573D17300242BD4 /* DMSans-MediumItalic.ttf in Resources */,
 				F4B3BE44256970C600D93D27 /* Preview Assets.xcassets in Resources */,
 				F4B3BE41256970C600D93D27 /* Assets.xcassets in Resources */,
+				DD776FBA2573D17300242BD4 /* DMSans-Bold.ttf in Resources */,
+				DD776FBE2573D17300242BD4 /* DMSans-Italic.ttf in Resources */,
+				DD776FBC2573D17300242BD4 /* DMSans-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
