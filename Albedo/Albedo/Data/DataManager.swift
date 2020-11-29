@@ -28,8 +28,10 @@ extension String {
 class DataManager: ObservableObject {
     
     @Published var searchResults: [Flat] = []
-    
+    @Published var loadingComplete = false
+    var totalResults : Int = Int.max
     static let shared = DataManager()
+    
     
     init() {
         NSLog("Before Query")
@@ -68,26 +70,37 @@ class DataManager: ObservableObject {
                 }
                 do{
                     let doc = try SwiftSoup.parse(html)
+                    
+                    // Total Anzahl Resultate speichern
+                    let scriptsElems = try doc.select("#container #content script")
+                    let rmvBefore = """
+                    jQuery("#totalAdsFoundHeader").text("Total
+                    """
+                    let rmvAfter = """
+                     WG-Inserate gefunden");
+                    """
+                    let foundStr = try scriptsElems[scriptsElems.count - 1].html()
+                        .clean(remove: [rmvBefore, rmvAfter, " "])
+                    DispatchQueue.main.async {
+                        self.totalResults = Int(foundStr)!
+                    }
+                    
+                    // Alle Links raussuchen und Parsing der WGs starten
                     let links = try doc.select("li.search-result-entry.search-mate-entry a")
                     for i in stride(from: 1, to: links.count, by: 2) {
                         let flatURL = try "https://www.wgzimmer.ch" + links[i].attr("href")
                         self.loadFlatData(flatURL: flatURL)
-//                        print(flatURL)
-//                        self.searchResults?.append(" ")
                     }
+                    // Nächste Seite ebenfalls parsen falls 39 (= Maximalzahl) Inserate auf der Seite sind
                     if(links.count == 78){
                         var params = parameters
                         params.start += 39
                         self.startQuery(parameters: params)
-                    }else{
-                        print("Parsing complete")
                     }
                 }catch{
                     print("Couldn't parse html of query: ")
                     print(parameters)
                 }
-                
-                
             }
     }
     
@@ -138,14 +151,14 @@ class DataManager: ObservableObject {
 
                 let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
-                print(self.searchResults.count)
-                
                 DispatchQueue.main.async {
                     self.searchResults.append(flat)
+                    print(self.searchResults.count)
+                    if(self.searchResults.count >= self.totalResults){
+                        self.loadingComplete = true
+                    }
+                    
                 }
-                
-                
-//                print(flat)
             }catch{
                 print("Couldn't parse html of " + flatURL)
             }
