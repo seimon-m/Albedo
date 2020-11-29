@@ -32,6 +32,7 @@
 		F4B3BE572569C00200D93D27 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F4B3BE562569C00200D93D27 /* Alamofire */; };
 		F4B3BE5B2569C0B400D93D27 /* Contentful in Frameworks */ = {isa = PBXBuildFile; productRef = F4B3BE5A2569C0B400D93D27 /* Contentful */; };
 		F4B3BE5E2569C10300D93D27 /* TestContentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE5D2569C10300D93D27 /* TestContentful.swift */; };
+		F4BC148C25740F64000050A5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BC148B25740F64000050A5 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		F4B3BE522569942F00D93D27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F4B3BE5D2569C10300D93D27 /* TestContentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContentful.swift; sourceTree = "<group>"; };
 		F4B3BE602569C4C000D93D27 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		F4BC148B25740F64000050A5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				DDC3A53D256DBEF100CADA32 /* CardView.swift */,
 				DD776FAC25732E1800242BD4 /* ImageLoader.swift */,
 				DD776FAF25732E7300242BD4 /* AsyncImage.swift */,
+				F4BC148B25740F64000050A5 /* DetailView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */,
 				F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */,
+				F4BC148C25740F64000050A5 /* DetailView.swift in Sources */,
 				DD776FAD25732E1800242BD4 /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
