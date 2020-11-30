@@ -20,7 +20,7 @@ struct ContentView: View {
                         Image("suche")
                         Text("Suche")
                     }.tag(1)
-                MapView()
+                DatingView()
                     .tabItem {
                         Image("profil")
                         Text("Profil")

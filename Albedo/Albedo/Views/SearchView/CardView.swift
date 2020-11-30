@@ -15,73 +15,77 @@ struct CardView: View {
     
     
     var body: some View {
-
-        VStack(alignment: .leading, spacing: 0) {
-            
-            if(flat.hasImages){
-                let url = URL(string: flat.highResImageURLs[0])!
-                AsyncImage(url: url)
-                    .frame(height: 200)
-                    .clipped()
-            }else{
-                Image("noPicturePlaceholder")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 200)
-                    .clipped()
-            }
-            
+        
+        
+        Button(action: {
+            print("Card pressed")
+        }) {
             VStack(alignment: .leading, spacing: 0) {
-                Text(String(flat.price)+".-")
-                    .foregroundColor(Color(red: 0, green: 0.749, blue: 0.514))
-                    .font(.custom("DMSans-Regular", size: 22))
-
-                    
-                Text(flat.title)
-                    .font(.custom("DMSans-Medium", size: 28))
-                HStack {
-                    Image("location")
+                if(flat.hasImages){
+                    let url = URL(string: flat.highResImageURLs[0])!
+                    AsyncImage(url: url)
+                        .frame(height: 200)
+                        .clipped()
+                }else{
+                    Image("noPicturePlaceholder")
                         .resizable()
-                        .scaledToFit()
-                        .frame(height: 14)
-                    Text(flat.place)
-                        .lineLimit(1)
-                        .font(.custom("DMSans-Regular", size: 15))
-                        .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                }.padding(0)
-                HStack() {
-                    HStack (){
-                        Image("date")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 19)
-                        Text(flat.startDate)
-                            .font(.custom("DMSans-Bold", size: 16))
-                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                    }.frame(width: 110, alignment: .topLeading)
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .clipped()
+                }
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(String(flat.price)+".-")
+                        .foregroundColor(Color(red: 0, green: 0.749, blue: 0.514))
+                        .font(.custom("DMSans-Regular", size: 22))
+
+                        
+                    Text(flat.title)
+                        .font(.custom("DMSans-Medium", size: 28))
+                        .foregroundColor(Color(.black))
                     HStack {
-                        Image("termination")
+                        Image("location")
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 20)
-                        Text(flat.termination)
+                            .frame(height: 14)
+                        Text(flat.place)
                             .lineLimit(1)
-                            .font(.custom("DMSans-Bold", size: 16))
+                            .font(.custom("DMSans-Regular", size: 15))
                             .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                    }
-                }.padding(.top, 12)
-             
+                    }.padding(0)
+                    HStack() {
+                        HStack (){
+                            Image("date")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 19)
+                            Text(flat.startDate)
+                                .font(.custom("DMSans-Bold", size: 16))
+                                .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        }.frame(width: 110, alignment: .topLeading)
+                        HStack {
+                            Image("termination")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 20)
+                            Text(flat.termination)
+                                .lineLimit(1)
+                                .font(.custom("DMSans-Bold", size: 16))
+                                .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        }
+                    }.padding(.top, 12)
+                 
+                }
+                .padding()
+                .padding(.top, -4)
             }
-            .padding()
-            .padding(.top, -4)
-            
-            
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
+            .background(Color.white)
+            .cornerRadius(15)
         }
-       
-        .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
-        .background(Color.white)
-        .cornerRadius(15)
-    }
+        }
+
+        
 }
 
 struct CardView_Previews: PreviewProvider {
