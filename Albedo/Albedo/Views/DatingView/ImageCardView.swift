@@ -34,9 +34,9 @@ struct ImageCardView: View {
                 .offset(x: 15.0, y: -15.0)
         }
         .frame(width: 350, height: 350)
-        .rotationEffect(.degrees(Double(offset.width / 5)))
+        .rotationEffect(.degrees(Double(offset.width / 15)))
         .offset(x: offset.width * 5, y: 0)
-        .opacity(2 - Double(abs(offset.width / 50)))
+        .opacity(2 - Double(abs(offset.width / 40)))
         .gesture(DragGesture().onChanged { gesture in
             self.offset = gesture.translation
         }
