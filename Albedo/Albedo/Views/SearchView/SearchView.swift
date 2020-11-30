@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @ObservedObject var data = DataManager.shared
     @State var searchText : String = ""
+    @State var showingFilterView = false
     
     var body: some View {
         
@@ -31,10 +32,17 @@ struct SearchView: View {
                     TextField("Suchen", text: $searchText)
                         .font(.custom("DMSans-Regular", size: 18))
                     Spacer()
-                    Image("filter")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 28)
+                    Button(action: {
+                        showingFilterView.toggle()
+                    }) {
+                        Image("filter")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 28)
+                    }.sheet(isPresented: $showingFilterView) {
+                        FilterView(isPresented: $showingFilterView)
+                    }
+                    
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
