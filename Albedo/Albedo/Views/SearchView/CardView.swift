@@ -11,9 +11,6 @@ import SwiftUI
 
 struct CardView: View {
     let flat : Flat
-    
-    
-    
     var body: some View {
         
         

@@ -33,7 +33,7 @@ struct SearchView: View {
                 ScrollView {
                     LazyVStack{
                         HStack {}
-                            .frame(height: 24)
+                            .frame(height: 20)
                         HStack {
                             Text(data.searchResults.count.description + " Resultate")
                                 .font(.custom("DMSans-Regular", size: 15))
