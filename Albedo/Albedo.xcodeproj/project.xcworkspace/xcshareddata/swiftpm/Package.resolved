@@ -20,12 +20,30 @@
         }
       },
       {
+        "package": "SnapshotTesting",
+        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
+        "state": {
+          "branch": null,
+          "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
+          "version": "1.8.2"
+        }
+      },
+      {
         "package": "SwiftSoup",
         "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
         "state": {
           "branch": null,
           "revision": "774dc9c7213085db8aa59595e27c1cd22e428904",
           "version": "2.3.2"
+        }
+      },
+      {
+        "package": "CardStack",
+        "repositoryURL": "https://github.com/dadalar/SwiftUI-CardStackView.git",
+        "state": {
+          "branch": null,
+          "revision": "30f1b5d72a9c9e200080590e10eec852073487c1",
+          "version": "0.0.5"
         }
       }
     ]

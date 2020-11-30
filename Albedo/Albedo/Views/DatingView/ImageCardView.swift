@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ImageCardView: View {
     var flat: Flat
-    @State private var offset = CGSize.zero
-    var removal: (() -> Void)? = nil
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)){
             if(flat.hasImages){
@@ -34,19 +32,6 @@ struct ImageCardView: View {
                 .offset(x: 15.0, y: -15.0)
         }
         .frame(width: 350, height: 350)
-        .rotationEffect(.degrees(Double(offset.width / 15)))
-        .offset(x: offset.width * 5, y: 0)
-        .opacity(2 - Double(abs(offset.width / 40)))
-        .gesture(DragGesture().onChanged { gesture in
-            self.offset = gesture.translation
-        }
-        .onEnded { _ in
-            if abs(self.offset.width) > 100 {
-                self.removal?() // remove Card
-            } else {
-                self.offset = .zero
-            }
-        })
 
     }
 }
