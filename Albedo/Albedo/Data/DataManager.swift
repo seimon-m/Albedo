@@ -157,7 +157,6 @@ class DataManager: ObservableObject {
                     if(self.searchResults.count >= self.totalResults){
                         self.loadingComplete = true
                     }
-                    
                 }
             }catch{
                 print("Couldn't parse html of " + flatURL)
