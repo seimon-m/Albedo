@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CardStack
+
 
 extension View {
     func stacked(at position: Int, in total: Int) -> some View {
@@ -21,64 +23,36 @@ struct DatingView: View {
         VStack {
             Text("Date deine WG").font(.custom("DMSans-Bold", size: 36))
             if data.loadingComplete {
-                ZStack(alignment: .leading) {
-//                    ForEach(0..<5, id: \.self) { index in
-//                        ImageCardView(flat:data.searchResults[index]) {
-//                            withAnimation {
-//                                self.removeCard(at: index)
-//                            }
-//                        }
-//                        .stacked(at: index, in:data.searchResults.count)
-//                    }
-                    ImageCardView(flat:data.searchResults[self.swipePosition]) {
-                        withAnimation {
-                            self.swipeHandler(at: self.swipePosition)
-                        }
-                    }.stacked(at: 0, in:5)
-                    ImageCardView(flat:data.searchResults[self.swipePosition + 1]) {
-                        withAnimation {
-                            self.swipeHandler(at: self.swipePosition + 1)
-                        }
-                    }.stacked(at: 1, in:5)
-                    ImageCardView(flat:data.searchResults[self.swipePosition + 1]) {
-                        withAnimation {
-                            self.swipeHandler(at: self.swipePosition + 2)
-                        }
-                    }.stacked(at: 2, in:5)
-                    ImageCardView(flat:data.searchResults[self.swipePosition + 3]) {
-                        withAnimation {
-                            self.swipeHandler(at: self.swipePosition + 3)
-                        }
-                    }.stacked(at: 3, in:5)
-                    ImageCardView(flat:data.searchResults[self.swipePosition + 4]) {
-                        withAnimation {
-                            self.swipeHandler(at: self.swipePosition + 4)
-                        }
-                    }.stacked(at: 4, in:5)
-                }.frame(width: .infinity, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                
+                CardStack(
+                  direction: LeftRight.direction,
+                    data: data.searchResults,
+                  onSwipe: { card, direction in
+                    print("Swiped \(card.place) to \(direction)")
+                    swipeHandler(flat: card)
+                  },
+                  content: { flat, direction, isOnTop in
+                    ImageCardView(flat: flat)
+                  }
+                )
+                .environment(
+                  \.cardStackConfiguration,
+                  CardStackConfiguration(
+                    maxVisibleCards: 5,
+                    swipeThreshold: 0.1,
+                    cardOffset: 30,
+                    cardScale: 0.2,
+                    animation: .linear
+                  )
+                )
             } else {
                 LoadingView().frame(width: .infinity, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }
-            HStack {
-                Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text("Dismiss")
-                }.padding()
-                Spacer()
-                Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text("Favor")
-                }.padding()
             }
         }
         .padding()
     }
     
-    func swipeHandler(at index: Int) {
-        self.swipePosition += 1
-    }
-    
-    func removeCard(at index: Int) {
-        // Remove cards from Array
+    func swipeHandler(flat: Flat) {
+        print("Set to favorites")
     }
 }
 
