@@ -15,8 +15,7 @@ struct SearchView: View {
     var body: some View {
         
         
-        
-        ZStack {
+        ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
 //            if data.loadingComplete {
 //                ForEach(data.searchResults){ flat in
 //                    VStack{}.onDisappear{
@@ -27,31 +26,14 @@ struct SearchView: View {
 //            }
             Color(red: 0.958, green: 0.958, blue: 0.958)
                 .ignoresSafeArea()
+            
             VStack {
-                HStack {
-                    TextField("Suchen", text: $searchText)
-                        .font(.custom("DMSans-Regular", size: 18))
-                    Spacer()
-                    Button(action: {
-                        showingFilterView.toggle()
-                    }) {
-                        Image("filter")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 28)
-                    }.sheet(isPresented: $showingFilterView) {
-                        FilterView(isPresented: $showingFilterView)
-                    }
-                    
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding()
-                .background(Color(.white))
-                .cornerRadius(15)
-                .shadow(color: Color(red: 0.91, green: 0.91, blue: 0.91), radius: 15, y: 8)
-                
+                HStack {}
+                    .frame(height: 30)
                 ScrollView {
                     LazyVStack{
+                        HStack {}
+                            .frame(height: 44)
                         HStack {
                             Text(data.searchResults.count.description + " Resultate")
                                 .font(.custom("DMSans-Regular", size: 15))
@@ -73,6 +55,30 @@ struct SearchView: View {
                         }
                     }
                 }
+            }.padding()
+            
+            Group {
+                HStack {
+                    TextField("Suchen", text: $searchText)
+                        .font(.custom("DMSans-Regular", size: 18))
+                    Spacer()
+                    Button(action: {
+                        showingFilterView.toggle()
+                    }) {
+                        Image("filter")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 28)
+                    }.sheet(isPresented: $showingFilterView) {
+                        FilterView(isPresented: $showingFilterView)
+                    }
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
+                .background(Color(.white))
+                .cornerRadius(15)
+                .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.07), radius: 15, y: 8)
             }.padding()
         }
         
