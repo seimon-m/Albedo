@@ -21,6 +21,7 @@
 		DD776FBD2573D17300242BD4 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB72573D17300242BD4 /* DMSans-Medium.ttf */; };
 		DD776FBE2573D17300242BD4 /* DMSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */; };
 		DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC2257507BA00242BD4 /* FilterView.swift */; };
+		DD776FC625752A2400242BD4 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC525752A2400242BD4 /* Favorites.swift */; };
 		DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3A53D256DBEF100CADA32 /* CardView.swift */; };
 		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E346E256D5F35004DC3EA /* ImageCardView.swift */; };
@@ -50,6 +51,7 @@
 		DD776FB72573D17300242BD4 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Medium.ttf"; sourceTree = "<group>"; };
 		DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Italic.ttf"; sourceTree = "<group>"; };
 		DD776FC2257507BA00242BD4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		DD776FC525752A2400242BD4 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		DDC3A53D256DBEF100CADA32 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F48E346E256D5F35004DC3EA /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				DD720386256BFA8C0002F11C /* DataManager.swift */,
 				DD72038D256C88180002F11C /* Flat.swift */,
 				DD776FAC25732E1800242BD4 /* ImageLoader.swift */,
+				DD776FC525752A2400242BD4 /* Favorites.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */,
 				DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */,
 				F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */,
+				DD776FC625752A2400242BD4 /* Favorites.swift in Sources */,
 				F4BC148C25740F64000050A5 /* DetailView.swift in Sources */,
 				DD776FAD25732E1800242BD4 /* ImageLoader.swift in Sources */,
 			);

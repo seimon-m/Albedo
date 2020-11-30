@@ -33,7 +33,7 @@ class DataManager: ObservableObject {
     static let shared = DataManager()
     
     
-    init() {
+    private init() {
         NSLog("Before Query")
         
         var params = QueryParameters()
