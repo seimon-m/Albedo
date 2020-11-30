@@ -84,7 +84,6 @@
 				F4B3BE522569942F00D93D27 /* MapView.swift */,
 				DD720383256BF8020002F11C /* SearchView.swift */,
 				DDC3A53D256DBEF100CADA32 /* CardView.swift */,
-				DD776FAC25732E1800242BD4 /* ImageLoader.swift */,
 				DD776FAF25732E7300242BD4 /* AsyncImage.swift */,
 				F4BC148B25740F64000050A5 /* DetailView.swift */,
 			);
@@ -140,6 +139,7 @@
 			children = (
 				DD720386256BFA8C0002F11C /* DataManager.swift */,
 				DD72038D256C88180002F11C /* Flat.swift */,
+				DD776FAC25732E1800242BD4 /* ImageLoader.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
