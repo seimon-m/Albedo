@@ -21,8 +21,10 @@ struct DatingView: View {
     @State var swipePosition = 0
     var body: some View {
         VStack {
-            Text("Date deine WG").font(.custom("DMSans-Bold", size: 36))
+            Spacer(minLength: 100)
+            Text("Date deine WG").font(.custom("DMSans-Bold", size: 42))
             if data.loadingComplete {
+                Spacer(minLength: 150)
                 CardStack(
                   direction: LeftRight.direction,
                     data: data.searchResults,
@@ -39,20 +41,20 @@ struct DatingView: View {
                   CardStackConfiguration(
                     maxVisibleCards: 5,
                     swipeThreshold: 0.1,
-                    cardOffset: 30,
-                    cardScale: 0.2,
+                    cardOffset: -80,
+                    cardScale: 0.1,
                     animation: .linear
                   )
-                ).frame(width: 380, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                ).frame(width: 350, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 HStack {
                     VStack {
                         Image("arrow_left")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(.red)
                         Text("Kein Interesse")
                             .font(.custom("DMSans-Regular", size: 18))
+                            .foregroundColor(Color("Blue"))
                     }
                     
                     Spacer()
@@ -61,13 +63,16 @@ struct DatingView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(.red)
                         Text("Zu den Favoriten")
                             .font(.custom("DMSans-Regular", size: 18))
+                            .foregroundColor(Color("Green"))
                     }
                 }
+                .offset(y: -100)
+                Spacer()
             } else {
                 LoadingView().frame(width: 350, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Spacer()
             }
         }
         .padding()
