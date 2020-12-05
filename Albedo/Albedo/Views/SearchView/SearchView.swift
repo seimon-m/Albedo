@@ -46,7 +46,7 @@ struct SearchView: View {
                                     .padding(.leading, 6)
                                 Spacer()
                             }
-                            MapView(flats: data.searchResults)
+                            MapView(flats: $data.searchResults)
                                 .frame(height: 300)
                                 .padding(.bottom)
                             HStack {
