@@ -52,7 +52,7 @@ struct CardView: View {
                             Text(flat.startDate)
                                 .font(.custom("DMSans-Bold", size: 16))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                        }.frame(width: 110, alignment: .topLeading)
+                        }.frame(width: 115, alignment: .topLeading)
                         HStack {
                             Image("termination")
                                 .resizable()
