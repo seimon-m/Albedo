@@ -17,7 +17,7 @@ struct MapView: View {
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2DMake(47.051861, 8.304898), latitudinalMeters: 3000, longitudinalMeters: 3000)
     
-    @State var flats: [Flat]
+    @Binding var flats: [Flat]
     
     var body: some View {
         let flatsWithCoords = flats.filter{$0.coordinate != nil}
