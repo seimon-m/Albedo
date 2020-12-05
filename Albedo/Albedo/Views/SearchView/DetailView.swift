@@ -10,10 +10,12 @@ import MapKit
 
 struct DetailView: View {
     let flat: Flat
+    // Location TODO
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    
+    @Environment(\.openURL) var openURL
 
     var body: some View {
-        
         ScrollView {
             VStack(alignment: .leading) {
                 
@@ -79,7 +81,7 @@ struct DetailView: View {
                             Spacer(minLength: 5)
                             Text(flat.roomDescription)
                                 .font(.custom("DMSans-Regular", size: 16))
-                            Spacer(minLength: 10)
+                            Spacer(minLength: 20)
                         }
                         Group {
                             Text("Wir sind:")
@@ -88,7 +90,7 @@ struct DetailView: View {
                             Spacer(minLength: 5)
                             Text(flat.aboutUsDescription)
                                 .font(.custom("DMSans-Regular", size: 16))
-                            Spacer(minLength: 10)
+                            Spacer(minLength: 20)
                         }
                         Group {
                             Text("Wir suchen:")
@@ -98,37 +100,37 @@ struct DetailView: View {
                             Text(flat.aboutYouDescription)
                                 .font(.custom("DMSans-Regular", size: 16))
                         }
-                        
+                        Spacer(minLength: 40)
+                        Group {
+                            Text("Lage")
+                                .font(.custom("DMSans-Bold", size: 14))
+                                .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
+                        }
                     }
                 }
                 .padding()
-                .padding(.top, -4)
                 
-                VStack(alignment: .leading) {
-                    Text("Lage")
-                        .font(.custom("DMSans-Bold", size: 14))
-                        .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
-                        .padding(.horizontal)
+                VStack(alignment: .center) {
                     Map(coordinateRegion: $region)
                         .frame(height: 300)
-                    Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
+                        .offset(y: -15)
+                    Button(action: {
+                        openURL(URL(string: flat.url)!)
+                    }) {
                         Text("Bewerben")
                             .frame(width: 170, height: 32, alignment: .center)
-                            .background(Color(.magenta))
+                            .background(Color("Green"))
                             .foregroundColor(.white)
                             .font(.custom("DMSans-Regular", size: 16))
                             .cornerRadius(20)
-                            
                     }
+                    HStack{}.frame(width: 40, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
             }
             .frame(alignment: .top)
-            .background(Color.white)
         }
-        .frame(width: .infinity, height: .infinity, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        
+        .background(Color(red: 0.958, green: 0.958, blue: 0.958))
     }
-
 }
 
 struct DetailView_Previews: PreviewProvider {
