@@ -16,14 +16,11 @@ struct DetailView: View {
     @Environment(\.openURL) var openURL
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
                 
                 if(flat.hasImages){
-                    let url = URL(string: flat.highResImageURLs[0])!
-                    AsyncImage(url: url)
-                        .frame(height: 200)
-                        .clipped()
+                    ImageGalleryView(images: flat.highResImageURLs)
                 }else{
                     Image("noPicturePlaceholder")
                         .resizable()

@@ -10,7 +10,7 @@ struct SearchView: View {
             Color(red: 0.958, green: 0.958, blue: 0.958).ignoresSafeArea()
             VStack {
                 NavigationView {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         LazyVStack{
                             HStack {}.frame(height: 20)
                             Group {
