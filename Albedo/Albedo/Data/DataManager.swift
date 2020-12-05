@@ -28,12 +28,16 @@ extension String {
 
 class DataManager: ObservableObject {
     
-    @Published var searchResults: [Flat] = []
-    @Published var loadingComplete = false
-    var totalResults : Int = Int.max
     static let shared = DataManager()
     
+    @Published var searchResults: [Flat] = []
+    @Published var loadingComplete = false
+    
+    var totalResults : Int = Int.max
+    
     var geocodingTimer : Timer?
+    private static let GEOCODING_INTERVAL = 5.1 //in seconds
+    private static let GEOCODING_BATCH_SIZE = 50
     
     
     private init() {
@@ -59,8 +63,6 @@ class DataManager: ObservableObject {
         var wgStartSearch = true
         var start = 0
     }
-    
-    
     
     func startQuery(parameters: QueryParameters)  {
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
@@ -114,8 +116,6 @@ class DataManager: ObservableObject {
                 return
             }
             do{
-//                print(flatURL)
-
                 let doc = try SwiftSoup.parse(html)
                 let adressInfos : Elements = try doc.select("div.wrap.col-wrap.adress-region p")
                 
@@ -158,7 +158,7 @@ class DataManager: ObservableObject {
                     self.searchResults.append(flat)
                     print(self.searchResults.count)
                     
-                    if(self.searchResults.count == 50){
+                    if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
                         self.startGeocoding()
                     }
                     if(self.searchResults.count >= self.totalResults){
@@ -188,12 +188,10 @@ class DataManager: ObservableObject {
         return String(script[rangeOfTheData])
     }
     
-    
-    
     private func startGeocoding(){
         stopGeocoding()
         geocodeBatch()
-        geocodingTimer = Timer.scheduledTimer(timeInterval: 5.1, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
+        geocodingTimer = Timer.scheduledTimer(timeInterval: DataManager.GEOCODING_INTERVAL, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
     }
     
     private func stopGeocoding(){
@@ -206,19 +204,14 @@ class DataManager: ObservableObject {
             
             let missingCoords = self.searchResults.filter{$0.coordinate == nil}
             print("Coords missing: " + missingCoords.count.description)
-            
-//            for flat in missingCoords{
-//                print(flat.url + ", ", terminator:"")
-//            }
-//            print()
-            
+                    
             
             var requestsCount = 0
             for i in 0..<self.searchResults.count{
                 let flat = self.searchResults[i]
                 
                 // Break if already sent 50 requests
-                if(requestsCount >= 50) { break }
+                if(requestsCount >= DataManager.GEOCODING_BATCH_SIZE) { break }
                 // Go to next if flat already has coordinate
                 if(flat.coordinate != nil) { continue }
                 
@@ -227,12 +220,11 @@ class DataManager: ObservableObject {
                 let geocoder = CLGeocoder()
                 geocoder.geocodeAddressString(flat.adress) { [weak self] (placemarks, error) in
                     guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
-                        //print("not able to get coordinate")
+                        // return if no coordinate found
                         return
                     }
                     
                     // Wird automatisch auf Main Thread ausgeführt...
-                    // print("Main Thread: " + Thread.isMainThread.description)
                     self?.searchResults[i].coordinate = coord
                 }
             }
@@ -240,77 +232,6 @@ class DataManager: ObservableObject {
             if(requestsCount == 0){
                 self.stopGeocoding()
             }
-            
-//            let noCoords = self.searchResults.filter{$0.coordinate == nil}
-//            if (noCoords.count == 0) {
-//                self.stopGeocoding()
-//                print("All flat coordinates are complete")
-//            }
-//
-//            for i in 0...min(noCoords.count, 50){
-//                let geocoder = CLGeocoder()
-//                var flat = noCoords[i]
-//
-//                geocoder.geocodeAddressString(flat.adress) { [weak self] (placemarks, error) in
-//                    guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
-//                        //print("not able to get coordinate")
-//                        return
-//                    }
-//
-//                    // Wird automatisch auf Main Thread ausgeführt...
-//                    // print("Main Thread: " + Thread.isMainThread.description)
-//
-//                    flat.coordinate = coord
-//                    self?.totalCoords += 1
-//
-//                    NSLog("Total Coords: " + (self?.totalCoords.description)!)
-//                }
-//            }
         }
     }
-    
-    
-//    private func geocodeAdresses(){
-//
-//        DispatchQueue.global(qos: .utility).async {
-//
-//
-//            let noCoords = self.searchResults.filter{$0.coordinate == nil}
-//            print("Main Thread: " + Thread.isMainThread.description)
-//
-//            for i in 0...min(noCoords.count, 50){
-//                let geocoder = CLGeocoder()
-//                var flat = noCoords[i]
-//
-//                geocoder.geocodeAddressString(flat.adress) { placemarks, error in
-//
-//                    guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
-//                        //print("not able to get coordinate")
-//                        return
-//                    }
-//        //            print("Coord: " + coord.latitude.description + ", " + coord.longitude.description)
-//                    print("Main Thread: " + Thread.isMainThread.description)
-//
-//                    DispatchQueue.main.async {
-//                        flat.coordinate = coord
-//                        self.totalCoords += 1
-//                        NSLog("Total Coords: " + self.totalCoords.description)
-//                        //print("FlatCoord: " + flat.coordinate.debugDescription)
-//
-//    //                    print("Main Thread: " + Thread.isMainThread.description)
-//                    }
-//                }
-//            }
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 11.0) {
-//                self.geocodeAdresses()
-//            }
-//
-////            DispatchQueue.main.async {
-////                print("This is run on the main queue, after the previous code in outer block")
-////            }
-//        }
-        
-        
-//    }
 }
