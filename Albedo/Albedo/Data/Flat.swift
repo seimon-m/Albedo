@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import CoreImage
 
-class Flat : Identifiable {
+struct Flat : Identifiable {
     
     init(url: String, roomDescription: String, aboutUsDescription: String, aboutYouDescription: String, street: String, zip: Int, place: String, district: String, price: Int, startDate: String, termination: String, lowResImageURLs: [String], highResImageURLs: [String]) {
         self.url = url
@@ -25,25 +25,7 @@ class Flat : Identifiable {
         self.termination = termination
         self.lowResImageURLs = lowResImageURLs
         self.highResImageURLs = highResImageURLs
-        
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(self.adress) { [weak self] (placemarks, error) in
-            
-            guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
-                print("not able to get coordinate")
-                return
-            }
-//            print("Coord: " + coord.latitude.description + ", " + coord.longitude.description)
-            
-            DispatchQueue.main.async {
-                self?.coordinate = coord
-            }
-        }
     }
-    
-    
-    
-   
     
     
     let id = UUID()
@@ -65,7 +47,7 @@ class Flat : Identifiable {
     var adress: String {
         return "\(street), \(zip) \(place)"
     }
-    var coordinate: CLLocationCoordinate2D?
+    var coordinate: CLLocationCoordinate2D? = nil
 
     
     let price: Int
@@ -79,6 +61,17 @@ class Flat : Identifiable {
     
     var hasImages: Bool{
         return highResImageURLs.count > 0
+    }
+    
+    private let favorites = Favorites.shared
+        
+    var liked: Bool {
+        get {
+            return favorites.likedFlatsURLs.contains(self.url)
+        }
+        set {
+            favorites.likedFlatsURLs.append(self.url)
+        }
     }
     
 //    let images: [CGImage]
