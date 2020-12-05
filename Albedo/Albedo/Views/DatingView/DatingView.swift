@@ -31,7 +31,7 @@ struct DatingView: View {
                     swipeHandler(flat: card)
                   },
                   content: { flat, direction, isOnTop in
-                    ImageCardView(flat: flat)
+                    ImageCardView(flat: flat, direction: direction)
                   }
                 )
                 .environment(
@@ -43,9 +43,31 @@ struct DatingView: View {
                     cardScale: 0.2,
                     animation: .linear
                   )
-                )
+                ).frame(width: 380, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                HStack {
+                    VStack {
+                        Image("arrow_left")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(.red)
+                        Text("Kein Interesse")
+                            .font(.custom("DMSans-Regular", size: 18))
+                    }
+                    
+                    Spacer()
+                    VStack {
+                        Image("arrow_right")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(.red)
+                        Text("Zu den Favoriten")
+                            .font(.custom("DMSans-Regular", size: 18))
+                    }
+                }
             } else {
-                LoadingView().frame(width: .infinity, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                LoadingView().frame(width: 350, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
         }
         .padding()
