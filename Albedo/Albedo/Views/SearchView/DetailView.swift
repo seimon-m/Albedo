@@ -125,8 +125,10 @@ struct DetailView: View {
             .frame(alignment: .top)
             .background(Color.white)
         }
+        .frame(width: .infinity, height: .infinity, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         
     }
+
 }
 
 struct DetailView_Previews: PreviewProvider {

@@ -12,11 +12,6 @@ import SwiftUI
 struct CardView: View {
     let flat : Flat
     var body: some View {
-        
-        
-        Button(action: {
-            print("Card pressed")
-        }) {
             VStack(alignment: .leading, spacing: 0) {
                 if(flat.hasImages){
                     let url = URL(string: flat.highResImageURLs[0])!
@@ -30,13 +25,11 @@ struct CardView: View {
                         .frame(height: 200)
                         .clipped()
                 }
-                
                 VStack(alignment: .leading, spacing: 0) {
                     Text(String(flat.price)+".-")
                         .foregroundColor(Color(red: 0, green: 0.749, blue: 0.514))
                         .font(.custom("DMSans-Regular", size: 22))
 
-                        
                     Text(flat.title)
                         .font(.custom("DMSans-Medium", size: 28))
                         .foregroundColor(Color(.black))
@@ -71,7 +64,6 @@ struct CardView: View {
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                         }
                     }.padding(.top, 12)
-                 
                 }
                 .padding()
                 .padding(.top, -4)
@@ -79,7 +71,6 @@ struct CardView: View {
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
             .background(Color.white)
             .cornerRadius(15)
-        }
         }
 
         
