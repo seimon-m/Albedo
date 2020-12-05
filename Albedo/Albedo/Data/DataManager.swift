@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import SwiftSoup
+import CoreLocation
 
 extension String {
     
@@ -27,10 +28,16 @@ extension String {
 
 class DataManager: ObservableObject {
     
+    static let shared = DataManager()
+    
     @Published var searchResults: [Flat] = []
     @Published var loadingComplete = false
+    
     var totalResults : Int = Int.max
-    static let shared = DataManager()
+    
+    var geocodingTimer : Timer?
+    private static let GEOCODING_INTERVAL = 5.1 //in seconds
+    private static let GEOCODING_BATCH_SIZE = 50
     
     
     private init() {
@@ -56,8 +63,6 @@ class DataManager: ObservableObject {
         var wgStartSearch = true
         var start = 0
     }
-    
-    
     
     func startQuery(parameters: QueryParameters)  {
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
@@ -111,8 +116,6 @@ class DataManager: ObservableObject {
                 return
             }
             do{
-//                print(flatURL)
-
                 let doc = try SwiftSoup.parse(html)
                 let adressInfos : Elements = try doc.select("div.wrap.col-wrap.adress-region p")
                 
@@ -154,8 +157,13 @@ class DataManager: ObservableObject {
                 DispatchQueue.main.async {
                     self.searchResults.append(flat)
                     print(self.searchResults.count)
+                    
+                    if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
+                        self.startGeocoding()
+                    }
                     if(self.searchResults.count >= self.totalResults){
                         self.loadingComplete = true
+                        self.startGeocoding()
                     }
                 }
             }catch{
@@ -178,5 +186,52 @@ class DataManager: ObservableObject {
         let rangeOfTheData = leftSideRange.upperBound..<rightSideRange.lowerBound
         
         return String(script[rangeOfTheData])
+    }
+    
+    private func startGeocoding(){
+        stopGeocoding()
+        geocodeBatch()
+        geocodingTimer = Timer.scheduledTimer(timeInterval: DataManager.GEOCODING_INTERVAL, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
+    }
+    
+    private func stopGeocoding(){
+        geocodingTimer?.invalidate();
+    }
+    
+    // Geocodes one Batch of 50 Adresses (50 is the maximum per minute)
+    @objc private func geocodeBatch(){
+        DispatchQueue.global(qos: .utility).async {
+            
+            let missingCoords = self.searchResults.filter{$0.coordinate == nil}
+            print("Coords missing: " + missingCoords.count.description)
+                    
+            
+            var requestsCount = 0
+            for i in 0..<self.searchResults.count{
+                let flat = self.searchResults[i]
+                
+                // Break if already sent 50 requests
+                if(requestsCount >= DataManager.GEOCODING_BATCH_SIZE) { break }
+                // Go to next if flat already has coordinate
+                if(flat.coordinate != nil) { continue }
+                
+                // Start request
+                requestsCount += 1
+                let geocoder = CLGeocoder()
+                geocoder.geocodeAddressString(flat.adress) { [weak self] (placemarks, error) in
+                    guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
+                        // return if no coordinate found
+                        return
+                    }
+                    
+                    // Wird automatisch auf Main Thread ausgeführt...
+                    self?.searchResults[i].coordinate = coord
+                }
+            }
+            
+            if(requestsCount == 0){
+                self.stopGeocoding()
+            }
+        }
     }
 }
