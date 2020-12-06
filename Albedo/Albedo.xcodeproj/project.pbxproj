@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DD26C9B8257C72BE0005E27E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26C9B7257C72BE0005E27E /* ProfileView.swift */; };
 		DD26C9C0257D44A50005E27E /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26C9BF257D44A50005E27E /* Regions.swift */; };
+		DD26C9C5257D4C340005E27E /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26C9C4257D4C340005E27E /* LikeButton.swift */; };
 		DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72037D256B171F0002F11C /* ScrapingView.swift */; };
 		DD720384256BF8020002F11C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720383256BF8020002F11C /* SearchView.swift */; };
 		DD720387256BFA8C0002F11C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720386256BFA8C0002F11C /* DataManager.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		DD26C9B7257C72BE0005E27E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DD26C9BF257D44A50005E27E /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
+		DD26C9C4257D4C340005E27E /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		DD72037D256B171F0002F11C /* ScrapingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapingView.swift; sourceTree = "<group>"; };
 		DD720383256BF8020002F11C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DD720386256BFA8C0002F11C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				DD776FC2257507BA00242BD4 /* FilterView.swift */,
 				F488CAED257C465A005108DB /* ImageGalleryView.swift */,
 				F4AB6233257D29F100C1CADB /* DetailMapView.swift */,
+				DD26C9C4257D4C340005E27E /* LikeButton.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				F4865C6B256A8F000081814F /* Contentful.swift in Sources */,
 				DD720387256BFA8C0002F11C /* DataManager.swift in Sources */,
 				F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */,
+				DD26C9C5257D4C340005E27E /* LikeButton.swift in Sources */,
 				F488B869257552C300FE2E89 /* LoadingView.swift in Sources */,
 				F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */,
 				DD26C9C0257D44A50005E27E /* Regions.swift in Sources */,

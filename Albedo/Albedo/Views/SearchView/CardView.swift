@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CardView: View {
     @State var flat : Flat
-    @State var updater = false
+    
     var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
@@ -27,19 +27,7 @@ struct CardView: View {
                             .frame(height: 200)
                             .clipped()
                     }
-                    Button(action: {
-                        flat.liked.toggle()
-                        updater.toggle()
-                    }) {
-                        // Hacky fix to force view to update
-                        if(updater){}
-                        Image(flat.liked ? "liked" : "notLiked")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 22)
-                            .padding()
-                            .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.7), radius: 16, y:2)
-                    }
+                    LikeButton(flat: $flat)
                 }
                 
                 VStack(alignment: .leading, spacing: 0) {
