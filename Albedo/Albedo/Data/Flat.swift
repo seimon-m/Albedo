@@ -70,7 +70,11 @@ struct Flat : Identifiable {
             return favorites.likedFlatsURLs.contains(self.url)
         }
         set {
-            favorites.likedFlatsURLs.append(self.url)
+            if(newValue == true){
+                favorites.addFavorite(url: self.url)
+            }else{
+                favorites.removeFavorite(url: self.url)
+            }
         }
     }
     
