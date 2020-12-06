@@ -31,6 +31,7 @@
 		F488CAEE257C465A005108DB /* ImageGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F488CAED257C465A005108DB /* ImageGalleryView.swift */; };
 		F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E346E256D5F35004DC3EA /* ImageCardView.swift */; };
 		F48E3472256D6829004DC3EA /* DatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E3471256D6829004DC3EA /* DatingView.swift */; };
+		F4AB6234257D29F100C1CADB /* DetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB6233257D29F100C1CADB /* DetailMapView.swift */; };
 		F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */; };
 		F4B3BE3F256970C400D93D27 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE3E256970C400D93D27 /* ContentView.swift */; };
 		F4B3BE41256970C600D93D27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE40256970C600D93D27 /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		F488CAED257C465A005108DB /* ImageGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryView.swift; sourceTree = "<group>"; };
 		F48E346E256D5F35004DC3EA /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 		F48E3471256D6829004DC3EA /* DatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingView.swift; sourceTree = "<group>"; };
+		F4AB6233257D29F100C1CADB /* DetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapView.swift; sourceTree = "<group>"; };
 		F4B3BE39256970C400D93D27 /* Albedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbedoApp.swift; sourceTree = "<group>"; };
 		F4B3BE3E256970C400D93D27 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				F4BC148B25740F64000050A5 /* DetailView.swift */,
 				DD776FC2257507BA00242BD4 /* FilterView.swift */,
 				F488CAED257C465A005108DB /* ImageGalleryView.swift */,
+				F4AB6233257D29F100C1CADB /* DetailMapView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */,
 				DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */,
+				F4AB6234257D29F100C1CADB /* DetailMapView.swift in Sources */,
 				F4B3BE3D256970C400D93D27 /* AlbedoApp.swift in Sources */,
 				F488CAEE257C465A005108DB /* ImageGalleryView.swift in Sources */,
 				F488CAE7257C2758005108DB /* TestView.swift in Sources */,

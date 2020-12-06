@@ -10,9 +10,6 @@ import MapKit
 
 struct DetailView: View {
     let flat: Flat
-    // Location TODO
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
     @Environment(\.openURL) var openURL
 
     var body: some View {
@@ -112,9 +109,9 @@ struct DetailView: View {
                 .padding()
                 
                 VStack(alignment: .center) {
-                    Map(coordinateRegion: $region)
+                    DetailMapView(flats: [self.flat])
                         .frame(height: 300)
-                        .offset(y: -15)
+                        .padding(.bottom)
                     Button(action: {
                         openURL(URL(string: flat.url)!)
                     }) {
@@ -133,6 +130,7 @@ struct DetailView: View {
         .background(Color(red: 0.958, green: 0.958, blue: 0.958))
     }
 }
+
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
