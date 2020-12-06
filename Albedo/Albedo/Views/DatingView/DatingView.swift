@@ -19,6 +19,7 @@ extension View {
 struct DatingView: View {
     @ObservedObject var data = DataManager.shared
     @State var swipePosition = 0
+    private let favorites = Favorites.shared
     var body: some View {
         VStack {
             Spacer(minLength: 150)
@@ -79,16 +80,14 @@ struct DatingView: View {
                 .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 Spacer()
             } else {
-                LoadingView().frame(width: 350, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                Spacer()
+                LoadingView().frame(width: 350, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding().offset(y: -50)
             }
         }
         .padding()
     }
     
     func swipeHandler(flat: Flat) {
-        print("Set to favorites")
-//        flat.liked
+        favorites.addFavorite(url: flat.url)
     }
 }
 
