@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import CoreImage
 
 struct Flat : Identifiable {
     
@@ -77,6 +76,4 @@ struct Flat : Identifiable {
             }
         }
     }
-    
-//    let images: [CGImage]
 }
