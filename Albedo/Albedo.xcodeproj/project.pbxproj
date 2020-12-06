@@ -109,7 +109,6 @@
 				DD776FAF25732E7300242BD4 /* AsyncImage.swift */,
 				F4BC148B25740F64000050A5 /* DetailView.swift */,
 				DD776FC2257507BA00242BD4 /* FilterView.swift */,
-				F488CAE6257C2758005108DB /* TestView.swift */,
 				F488CAED257C465A005108DB /* ImageGalleryView.swift */,
 			);
 			path = SearchView;
@@ -154,6 +153,7 @@
 		DDC3A538256D82CD00CADA32 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F488CAE6257C2758005108DB /* TestView.swift */,
 				DD72037D256B171F0002F11C /* ScrapingView.swift */,
 				F4B3BE5D2569C10300D93D27 /* TestContentful.swift */,
 				F4865C6A256A8F000081814F /* Contentful.swift */,

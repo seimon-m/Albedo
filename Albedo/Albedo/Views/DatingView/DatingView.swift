@@ -21,7 +21,7 @@ struct DatingView: View {
     @State var swipePosition = 0
     var body: some View {
         VStack {
-            Spacer(minLength: 100)
+            Spacer(minLength: 150)
             Text("Swipe dich zu deiner WG")
                 .font(.custom("DMSans-Bold", size: 28))
                 .multilineTextAlignment(.center)
@@ -33,7 +33,9 @@ struct DatingView: View {
                     data: data.searchResults,
                   onSwipe: { card, direction in
                     print("Swiped \(card.place) to \(direction)")
-                    swipeHandler(flat: card)
+                    if direction == .right {
+                        swipeHandler(flat: card)
+                    }
                   },
                   content: { flat, direction, isOnTop in
                     ImageCardView(flat: flat, direction: direction)
@@ -48,7 +50,9 @@ struct DatingView: View {
                     cardScale: 0.1,
                     animation: .linear
                   )
-                ).frame(width: 350, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                )
+                .frame(width: 350, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .zIndex(2.0)
                 HStack {
                     VStack {
                         Image("arrow_left")
@@ -56,7 +60,7 @@ struct DatingView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         Text("Kein Interesse")
-                            .font(.custom("DMSans-Regular", size: 18))
+                            .font(.custom("DMSans-Regular", size: 16))
                             .foregroundColor(Color("Blue"))
                     }
                     
@@ -67,11 +71,12 @@ struct DatingView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         Text("Zu den Favoriten")
-                            .font(.custom("DMSans-Regular", size: 18))
+                            .font(.custom("DMSans-Regular", size: 16))
                             .foregroundColor(Color("Green"))
                     }
                 }
-                .offset(y: -100)
+                .offset(y: -150)
+                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 Spacer()
             } else {
                 LoadingView().frame(width: 350, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -83,6 +88,7 @@ struct DatingView: View {
     
     func swipeHandler(flat: Flat) {
         print("Set to favorites")
+//        flat.liked
     }
 }
 
