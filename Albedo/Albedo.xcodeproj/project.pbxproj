@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD26C9B8257C72BE0005E27E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26C9B7257C72BE0005E27E /* ProfileView.swift */; };
 		DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72037D256B171F0002F11C /* ScrapingView.swift */; };
 		DD720384256BF8020002F11C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720383256BF8020002F11C /* SearchView.swift */; };
 		DD720387256BFA8C0002F11C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD720386256BFA8C0002F11C /* DataManager.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD26C9B7257C72BE0005E27E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DD72037D256B171F0002F11C /* ScrapingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapingView.swift; sourceTree = "<group>"; };
 		DD720383256BF8020002F11C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DD720386256BFA8C0002F11C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD26C9B6257C72A00005E27E /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				DD26C9B7257C72BE0005E27E /* ProfileView.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
 		DD720382256BF79D0002F11C /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 		DDC3A537256D826400CADA32 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DD26C9B6257C72A00005E27E /* ProfileView */,
 				F4B3BE3C256970C400D93D27 /* AlbedoApp.swift */,
 				F4B3BE3E256970C400D93D27 /* ContentView.swift */,
 				DDC3A538256D82CD00CADA32 /* Tests */,
@@ -305,6 +316,7 @@
 				F488CAE7257C2758005108DB /* TestView.swift in Sources */,
 				DD776FC625752A2400242BD4 /* Favorites.swift in Sources */,
 				F4BC148C25740F64000050A5 /* DetailView.swift in Sources */,
+				DD26C9B8257C72BE0005E27E /* ProfileView.swift in Sources */,
 				DD776FAD25732E1800242BD4 /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

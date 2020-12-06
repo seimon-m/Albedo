@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var selectedTab = 1
+    @State private var selectedTab = 0
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -23,7 +23,7 @@ struct ContentView: View {
                         Image("suche")
                         Text("Suche")
                     }.tag(1)
-                DatingView()
+                ProfileView()
                     .tabItem {
                         Image("profil")
                         Text("Profil")
