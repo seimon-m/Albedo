@@ -10,22 +10,18 @@ import SwiftUI
 struct ImageGalleryView: View {
     var images: [String]
     var body: some View {
-        TabView {
-            ForEach(0..<images.count) { num in
-                if let url = URL(string: images[num]) {
-                    AsyncImage(url: url)
-                        .tag(num)
-                        .clipped()
+        GeometryReader { proxy in
+            TabView {
+                ForEach(0..<images.count) { num in
+                    if let url = URL(string: images[num]) {
+                        AsyncImage(url: url)
+                            .tag(num)
+                    }
                 }
             }
+            .tabViewStyle(PageTabViewStyle())
+            .frame(width: proxy.size.width, height: proxy.size.height / 3)
         }
-        .frame(height: 200)
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-        .scaledToFill()
-        
-
     }
 }
 

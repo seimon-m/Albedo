@@ -17,10 +17,14 @@ struct DetailView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 
                 if(flat.hasImages){
                     ImageGalleryView(images: flat.highResImageURLs)
+                        .scaledToFill()
+                        .frame(width: 350, height: 200)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                    Spacer(minLength: 50)
                 }else{
                     Image("noPicturePlaceholder")
                         .resizable()
