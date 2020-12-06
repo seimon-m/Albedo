@@ -10,7 +10,8 @@ import SwiftUI
 struct FilterView: View {
     
     @Binding var isPresented : Bool
-    @State var perpetual = false
+    @State var perpetualToggle = false
+    @State var dateToggle = false
     @State var maxPrice : Double = 1500
     
     var body: some View {
@@ -34,13 +35,21 @@ struct FilterView: View {
                 
                 Form {
                     Section {
-                        DatePicker("Startdatum", selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, displayedComponents: [.date])
-                            .font(.custom("DMSans-Medium", size: 20))
-                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        Toggle(isOn: $dateToggle) {
+                            Text("Einzugsdatum")
+                                .font(.custom("DMSans-Medium", size: 20))
+                                .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        }
+                        
+                        DatePicker("Verfügbar ab", selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, displayedComponents: [.date])
+                            .font(.custom("DMSans-Regular", size: 16))
+                            .foregroundColor(dateToggle ? Color(red: 0.4, green: 0.4, blue: 0.4) : Color(red: 0.831, green: 0.831, blue: 0.831))
+                            .disabled(!dateToggle)
+                        
                     }
                     Section {
                         HStack {
-                            Toggle(isOn: $perpetual) {
+                            Toggle(isOn: $perpetualToggle) {
                                 Text("Unbefristet")
                                     .font(.custom("DMSans-Medium", size: 20))
                                     .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))

@@ -15,12 +15,12 @@ struct LoadingView: View {
         ZStack {
  
             Circle()
-                .stroke(Color(.systemGray5), lineWidth: 20)
+                .stroke(Color(.systemGray5), lineWidth: 6)
                 .frame(width: 100, height: 100)
  
             Circle()
                 .trim(from: 0, to: 0.2)
-                .stroke(Color("Green"), lineWidth: 15)
+                .stroke(Color("Green"), lineWidth: 6)
                 .frame(width: 100, height: 100)
                 .rotationEffect(Angle(degrees: isLoading ? 415 : 55))
                 .animation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: false))

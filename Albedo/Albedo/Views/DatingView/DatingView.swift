@@ -22,7 +22,10 @@ struct DatingView: View {
     var body: some View {
         VStack {
             Spacer(minLength: 100)
-            Text("Date deine WG").font(.custom("DMSans-Bold", size: 42))
+            Text("Swipe dich zu deiner WG")
+                .font(.custom("DMSans-Bold", size: 28))
+                .multilineTextAlignment(.center)
+            
             if data.loadingComplete {
                 Spacer(minLength: 150)
                 CardStack(
