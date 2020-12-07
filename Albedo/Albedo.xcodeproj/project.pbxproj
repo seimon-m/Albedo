@@ -26,7 +26,6 @@
 		DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC2257507BA00242BD4 /* FilterView.swift */; };
 		DD776FC625752A2400242BD4 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC525752A2400242BD4 /* Favorites.swift */; };
 		DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC3A53D256DBEF100CADA32 /* CardView.swift */; };
-		F4865C6B256A8F000081814F /* Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4865C6A256A8F000081814F /* Contentful.swift */; };
 		F488B869257552C300FE2E89 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F488B868257552C300FE2E89 /* LoadingView.swift */; };
 		F488B875257578B100FE2E89 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = F488B874257578B100FE2E89 /* CardStack */; };
 		F488CAE7257C2758005108DB /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F488CAE6257C2758005108DB /* TestView.swift */; };
@@ -40,8 +39,6 @@
 		F4B3BE44256970C600D93D27 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B3BE43256970C600D93D27 /* Preview Assets.xcassets */; };
 		F4B3BE532569942F00D93D27 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE522569942F00D93D27 /* MapView.swift */; };
 		F4B3BE572569C00200D93D27 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F4B3BE562569C00200D93D27 /* Alamofire */; };
-		F4B3BE5B2569C0B400D93D27 /* Contentful in Frameworks */ = {isa = PBXBuildFile; productRef = F4B3BE5A2569C0B400D93D27 /* Contentful */; };
-		F4B3BE5E2569C10300D93D27 /* TestContentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3BE5D2569C10300D93D27 /* TestContentful.swift */; };
 		F4BC148C25740F64000050A5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BC148B25740F64000050A5 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,7 +61,6 @@
 		DD776FC2257507BA00242BD4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		DD776FC525752A2400242BD4 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		DDC3A53D256DBEF100CADA32 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		F4865C6A256A8F000081814F /* Contentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentful.swift; sourceTree = "<group>"; };
 		F488B868257552C300FE2E89 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F488CAE6257C2758005108DB /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		F488CAED257C465A005108DB /* ImageGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryView.swift; sourceTree = "<group>"; };
@@ -78,7 +74,6 @@
 		F4B3BE43256970C600D93D27 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4B3BE45256970C600D93D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B3BE522569942F00D93D27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		F4B3BE5D2569C10300D93D27 /* TestContentful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContentful.swift; sourceTree = "<group>"; };
 		F4B3BE602569C4C000D93D27 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F4BC148B25740F64000050A5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4B3BE5B2569C0B400D93D27 /* Contentful in Frameworks */,
 				F488B875257578B100FE2E89 /* CardStack in Frameworks */,
 				F4B3BE572569C00200D93D27 /* Alamofire in Frameworks */,
 				DD72038B256C6E730002F11C /* SwiftSoup in Frameworks */,
@@ -163,8 +157,6 @@
 			children = (
 				F488CAE6257C2758005108DB /* TestView.swift */,
 				DD72037D256B171F0002F11C /* ScrapingView.swift */,
-				F4B3BE5D2569C10300D93D27 /* TestContentful.swift */,
-				F4865C6A256A8F000081814F /* Contentful.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -237,7 +229,6 @@
 			name = Albedo;
 			packageProductDependencies = (
 				F4B3BE562569C00200D93D27 /* Alamofire */,
-				F4B3BE5A2569C0B400D93D27 /* Contentful */,
 				DD72038A256C6E730002F11C /* SwiftSoup */,
 				F488B874257578B100FE2E89 /* CardStack */,
 			);
@@ -270,7 +261,6 @@
 			mainGroup = F4B3BE30256970C400D93D27;
 			packageReferences = (
 				F4B3BE552569C00100D93D27 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				F4B3BE592569C0B400D93D27 /* XCRemoteSwiftPackageReference "contentful.swift" */,
 				DD720389256C6E730002F11C /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				F488B873257578B100FE2E89 /* XCRemoteSwiftPackageReference "SwiftUI-CardStackView" */,
 			);
@@ -307,7 +297,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD776FB025732E7300242BD4 /* AsyncImage.swift in Sources */,
-				F4865C6B256A8F000081814F /* Contentful.swift in Sources */,
 				DD720387256BFA8C0002F11C /* DataManager.swift in Sources */,
 				F48E346F256D5F35004DC3EA /* ImageCardView.swift in Sources */,
 				DD26C9C5257D4C340005E27E /* LikeButton.swift in Sources */,
@@ -318,7 +307,6 @@
 				DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */,
 				DD72038E256C88190002F11C /* Flat.swift in Sources */,
 				DD720384256BF8020002F11C /* SearchView.swift in Sources */,
-				F4B3BE5E2569C10300D93D27 /* TestContentful.swift in Sources */,
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */,
 				DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */,
@@ -544,14 +532,6 @@
 				minimumVersion = 5.4.0;
 			};
 		};
-		F4B3BE592569C0B400D93D27 /* XCRemoteSwiftPackageReference "contentful.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/contentful/contentful.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.3.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -569,11 +549,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F4B3BE552569C00100D93D27 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		F4B3BE5A2569C0B400D93D27 /* Contentful */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F4B3BE592569C0B400D93D27 /* XCRemoteSwiftPackageReference "contentful.swift" */;
-			productName = Contentful;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

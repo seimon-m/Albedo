@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "Contentful",
-        "repositoryURL": "https://github.com/contentful/contentful.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "91f2306270a76fadc4c0c8237eff22966b608c08",
-          "version": "5.3.0"
-        }
-      },
-      {
         "package": "SnapshotTesting",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
