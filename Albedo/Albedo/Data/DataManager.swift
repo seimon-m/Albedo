@@ -135,7 +135,16 @@ class DataManager: ObservableObject {
                 let aboutYouDescription : String = try doc.select("div.wrap.col-wrap.room-content p")[0].text()
                 
                 let datePerpetualCost = try doc.select("div.wrap.col-wrap.date-cost p")
-                let startDate = try datePerpetualCost[0].text().clean(remove: ["Ab dem "])
+                let startDateStr = try datePerpetualCost[0].text().clean(remove: ["Ab dem "])
+                let dateElements = startDateStr.split(separator: ".")
+                let calendar = Calendar.current
+                var components = DateComponents()
+                components.day = Int(dateElements[0]) ?? 1
+                components.month = Int(dateElements[1]) ?? 1
+                components.year = Int(dateElements[2]) ?? 2000
+                let date : Date = calendar.date(from: components)!
+                
+                
                 let termination = try datePerpetualCost[1].text().clean(remove: ["Bis "])
                 let priceStr = try datePerpetualCost[2].text().clean(remove: ["Miete / Monat", "sFr.",".–", " ", "'"])
                 let price : Int = Int(priceStr) ?? 0
@@ -152,7 +161,7 @@ class DataManager: ObservableObject {
                     highResImgURLs.append(highResURL)
                 }
 
-                let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: startDate, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
+                let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: date, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
                 DispatchQueue.main.async {
                     self.searchResults.append(flat)

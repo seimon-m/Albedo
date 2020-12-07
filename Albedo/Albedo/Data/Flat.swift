@@ -10,23 +10,6 @@ import CoreLocation
 
 struct Flat : Identifiable {
     
-    init(url: String, roomDescription: String, aboutUsDescription: String, aboutYouDescription: String, street: String, zip: Int, place: String, district: String, price: Int, startDate: String, termination: String, lowResImageURLs: [String], highResImageURLs: [String]) {
-        self.url = url
-        self.roomDescription = roomDescription
-        self.aboutUsDescription = aboutUsDescription
-        self.aboutYouDescription = aboutYouDescription
-        self.street = street
-        self.zip = zip
-        self.place = place
-        self.district = district
-        self.price = price
-        self.startDate = startDate
-        self.termination = termination
-        self.lowResImageURLs = lowResImageURLs
-        self.highResImageURLs = highResImageURLs
-    }
-    
-    
     let id = UUID()
     
     let url: String
@@ -50,7 +33,13 @@ struct Flat : Identifiable {
 
     
     let price: Int
-    let startDate: String
+    let startDate: Date
+    func getStartDateString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        return dateFormatter.string(from: startDate)
+    }
+    
     let termination: String
     var isPerpetual : Bool {
         return termination.contains("Unbefristet") ? true : false;
