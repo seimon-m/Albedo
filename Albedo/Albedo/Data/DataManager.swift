@@ -35,9 +35,7 @@ class DataManager: ObservableObject {
     
     var totalResults : Int = Int.max
     
-    var geocodingTimer : Timer?
-    private static let GEOCODING_INTERVAL = 5.1 //in seconds
-    private static let GEOCODING_BATCH_SIZE = 50
+    
     
     
     private init() {
@@ -94,7 +92,21 @@ class DataManager: ObservableObject {
                     let links = try doc.select("li.search-result-entry.search-mate-entry a")
                     for i in stride(from: 1, to: links.count, by: 2) {
                         let flatURL = try "https://www.wgzimmer.ch" + links[i].attr("href")
-                        self.loadFlatData(flatURL: flatURL)
+                        
+                        let geocoder = Geocoder(flats: &self.searchResults)
+                        
+                        self.loadFlatData(flatURL: flatURL){ flat in
+                            self.searchResults.append(flat)
+                            print(self.searchResults.count)
+                
+                            if(self.searchResults.count == Geocoder.GEOCODING_BATCH_SIZE){
+                                geocoder.startGeocoding()
+                            }
+                            if(self.searchResults.count >= self.totalResults){
+                                self.loadingComplete = true
+                                geocoder.startGeocoding()
+                            }
+                        }
                     }
                     // Nächste Seite ebenfalls parsen falls 39 (= Maximalzahl) Inserate auf der Seite sind
                     if(links.count == 78){
@@ -109,7 +121,7 @@ class DataManager: ObservableObject {
             }
     }
     
-    func loadFlatData(flatURL: String){
+    func loadFlatData(flatURL: String, onFlatLoaded: @escaping (Flat) -> Void){
         AF.request(flatURL).responseString(queue: DispatchQueue.global()) { response in
             guard let html = response.value else{
                 print("Couldn't get flat htmlString")
@@ -164,16 +176,7 @@ class DataManager: ObservableObject {
                 let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: date, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
                 DispatchQueue.main.async {
-                    self.searchResults.append(flat)
-                    print(self.searchResults.count)
-                    
-                    if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
-                        self.startGeocoding()
-                    }
-                    if(self.searchResults.count >= self.totalResults){
-                        self.loadingComplete = true
-                        self.startGeocoding()
-                    }
+                    onFlatLoaded(flat)
                 }
             }catch{
                 print("Couldn't parse html of " + flatURL)
@@ -197,50 +200,5 @@ class DataManager: ObservableObject {
         return String(script[rangeOfTheData])
     }
     
-    private func startGeocoding(){
-        stopGeocoding()
-        geocodeBatch()
-        geocodingTimer = Timer.scheduledTimer(timeInterval: DataManager.GEOCODING_INTERVAL, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
-    }
     
-    private func stopGeocoding(){
-        geocodingTimer?.invalidate();
-    }
-    
-    // Geocodes one Batch of 50 Adresses (50 is the maximum per minute)
-    @objc private func geocodeBatch(){
-        DispatchQueue.global(qos: .utility).async {
-            
-            let missingCoords = self.searchResults.filter{$0.coordinate == nil}
-            print("Coords missing: " + missingCoords.count.description)
-                    
-            
-            var requestsCount = 0
-            for i in 0..<self.searchResults.count{
-                let flat = self.searchResults[i]
-                
-                // Break if already sent 50 requests
-                if(requestsCount >= DataManager.GEOCODING_BATCH_SIZE) { break }
-                // Go to next if flat already has coordinate
-                if(flat.coordinate != nil) { continue }
-                
-                // Start request
-                requestsCount += 1
-                let geocoder = CLGeocoder()
-                geocoder.geocodeAddressString(flat.adress) { [weak self] (placemarks, error) in
-                    guard let coord : CLLocationCoordinate2D = placemarks?.first?.location?.coordinate else{
-                        // return if no coordinate found
-                        return
-                    }
-                    
-                    // Wird automatisch auf Main Thread ausgeführt...
-                    self?.searchResults[i].coordinate = coord
-                }
-            }
-            
-            if(requestsCount == 0){
-                self.stopGeocoding()
-            }
-        }
-    }
 }
