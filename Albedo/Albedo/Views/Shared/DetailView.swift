@@ -10,26 +10,29 @@ import MapKit
 import Foundation
 
 struct DetailView: View {
-    let flat: Flat
+    @State var flat: Flat
     @Environment(\.openURL) var openURL
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
-                
-                if(flat.hasImages){
-                    ImageGalleryView(images: flat.highResImageURLs)
-                        .scaledToFill()
-                        .frame(width: 350, height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                    Spacer(minLength: 50)
-                }else{
-                    Image("noPicturePlaceholder")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
-                        .clipped()
+                ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                    if(flat.hasImages){
+                        ImageGalleryView(images: flat.highResImageURLs)
+                            .scaledToFill()
+                            .frame(width: 350, height: 200)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        Spacer(minLength: 50)
+                    }else{
+                        Image("noPicturePlaceholder")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+                    }
+                    LikeButton(flat: $flat)
                 }
+                
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text(String(flat.price)+".-")
@@ -54,16 +57,19 @@ struct DetailView: View {
                             Image("date")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 19)
+                                .frame(width: 18, height: 18)
                             Text(flat.getStartDateString())
+                                .lineLimit(1)
                                 .font(.custom("DMSans-Bold", size: 16))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
-                        }.frame(width: 110, alignment: .topLeading)
+                                .frame(width: 190, alignment: .leading)
+                                
+                        }.frame(width: 125, alignment: .topLeading)
                         HStack {
                             Image("termination")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 20)
+                                .frame(width: 18, height: 18)
                             Text(flat.termination)
                                 .lineLimit(1)
                                 .font(.custom("DMSans-Bold", size: 16))
