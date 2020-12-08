@@ -11,6 +11,7 @@ import Foundation
 class Favorites: ObservableObject {
     
     static let shared = Favorites()
+    
     @Published var likedFlatsURLs : [String] = []
     @Published var flats : [Flat] = []
     
@@ -26,6 +27,7 @@ class Favorites: ObservableObject {
     func loadFromDefaults(){
         likedFlatsURLs = UserDefaults.standard.stringArray(forKey: "likedFlatsURLs") ?? [String]()
         print("Favorites loaded: " + likedFlatsURLs.description)
+        updateFlats()
     }
     
     func saveToDefaults(){

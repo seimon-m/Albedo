@@ -13,11 +13,13 @@ class FlatsCache {
     static func add(_ flat: Flat){
         if let index = flats.firstIndex(of: flat){
             flats[index] = flat
-//            print("Replaced in Cache")
         }else{
             flats.append(flat)
-//            print("Added to Cache")
         }
+    }
+    
+    static func printURLs(){
+        print(flats.map{$0.url})
     }
 }
  

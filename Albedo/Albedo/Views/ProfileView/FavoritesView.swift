@@ -9,20 +9,40 @@ import SwiftUI
 
 struct FavoritesView: View {
     @ObservedObject var favorites = Favorites.shared
+    @State var render = 0
+    
+    init(){
+            UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "DMSans-Bold", size: 36)!]
+        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "DMSans-Bold", size: 20)!]
+        
+            UIBarButtonItem.appearance()
+                .setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "DMSans-Regular", size: 17)!],
+                                     for: .normal)
+       
+    }
     
     var body: some View {
         
-        ScrollView {
-            LazyVStack {
-                ForEach(favorites.flats){ flat in
-                    NavigationLink(destination: DetailView(flat: flat)) {
-                        CardView(flat: flat)
+
+        
+        ZStack {
+            Color(red: 0.958, green: 0.958, blue: 0.958).ignoresSafeArea()
+            
+            ScrollView {
+                LazyVStack {
+                    ForEach(favorites.flats){ flat in
+                        NavigationLink(destination: DetailView(flat: flat)) {
+                            CardView(flat: flat)
+                        }.padding(.bottom)
                     }
                 }
             }
+            .navigationBarTitle("Favoriten", displayMode: .inline)
+            .padding()
+            
+        }.onAppear{
+            print("Hellou: " + favorites.flats.description)
         }
-        .navigationBarTitle("Favoriten", displayMode: .large)
-        .padding()
     }
 }
 

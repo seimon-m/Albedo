@@ -125,12 +125,11 @@ class DataManager: ObservableObject {
     func loadFlatData(flatURL: String, onFlatLoaded: @escaping (Flat) -> Void){
         
         // Return directly if already in cache
-//        let flats = FlatsCache.flats.filter{$0.url == flatURL}
-//        if flats.count >= 1 {
-//            onFlatLoaded(flats[0])
-//            print("Found cached flat")
-//            print("Flat has coordinate: " + (flats[0].coordinate != nil).description)
-//        }
+        let flats = FlatsCache.flats.filter{$0.url == flatURL}
+        if flats.count >= 1 {
+            onFlatLoaded(flats[0])
+            return
+        }
 
         AF.request(flatURL).responseString(queue: DispatchQueue.global()) { response in
             guard let html = response.value else{
