@@ -129,6 +129,7 @@ struct DetailView: View {
             .frame(alignment: .top)
         }
         .background(Color(red: 0.958, green: 0.958, blue: 0.958))
+        .navigationBarTitle("", displayMode: .inline)
     }
 }
 

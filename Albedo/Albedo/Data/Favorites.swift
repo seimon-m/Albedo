@@ -12,11 +12,15 @@ class Favorites: ObservableObject {
     
     static let shared = Favorites()
     @Published var likedFlatsURLs : [String] = []
+    @Published var flats : [Flat] = []
     
+    
+    private let dataManager = DataManager.shared
     
     private init() {
         print("Favorites created")
         loadFromDefaults()
+        
     }
     
     func loadFromDefaults(){
@@ -27,16 +31,28 @@ class Favorites: ObservableObject {
     func saveToDefaults(){
         UserDefaults.standard.set(likedFlatsURLs, forKey: "likedFlatsURLs")
         print("Favorites saved: " + likedFlatsURLs.description)
+        updateFlats()
     }
     
     func addFavorite(url: String){
-        likedFlatsURLs.append(url)
-        saveToDefaults()
+        if !likedFlatsURLs.contains(url){
+            likedFlatsURLs.append(url)
+            saveToDefaults()
+        }
     }
     
     func removeFavorite(url: String){
         likedFlatsURLs = likedFlatsURLs.filter(){$0 != url}
         saveToDefaults()
+    }
+    
+    func updateFlats(){
+        self.flats = []
+        for url in likedFlatsURLs{
+            dataManager.loadFlatData(flatURL: url){ flat in
+                self.flats.append(flat)
+            }
+        }
     }
     
 }

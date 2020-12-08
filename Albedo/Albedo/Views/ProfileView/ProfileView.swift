@@ -44,7 +44,7 @@ struct ProfileView: View {
                     }
                     
                     Section{
-                        NavigationLink(destination: Text("Favoriten")) {
+                        NavigationLink(destination: FavoritesView()) {
                             Text("Favoriten")
                                 .font(.custom("DMSans-Medium", size: 20))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
@@ -52,7 +52,7 @@ struct ProfileView: View {
                     }
                     
                 }
-                .navigationBarTitle(Text("Profil"))
+                .navigationBarTitle(Text("Profil"), displayMode: .large)
             }
             
             

@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 
-struct Flat : Hashable, Identifiable  {
-    
+struct Flat : Identifiable, Equatable  {
+
     var id : String {
         return url
     }
@@ -69,10 +69,6 @@ struct Flat : Hashable, Identifiable  {
     }
     
     static func == (lhs: Flat, rhs: Flat) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
+        return lhs.id == rhs.id
     }
 }

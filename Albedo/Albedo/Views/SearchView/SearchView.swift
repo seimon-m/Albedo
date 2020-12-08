@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var data = DataManager.shared
+    @ObservedObject var searchResults = DataManager.shared
     @State var searchText : String = ""
     @State var showingFilterView = false
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
+        NavigationView {
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
             Color(red: 0.958, green: 0.958, blue: 0.958).ignoresSafeArea()
-            VStack {
-                NavigationView {
+                VStack {
                     ScrollView(showsIndicators: false) {
                         LazyVStack{
-                            HStack {}.frame(height: 20)
+//                            HStack {}.frame(height: 20)
                             Group {
                                 HStack {
                                     TextField("Suchen", text: $searchText)
@@ -40,13 +40,13 @@ struct SearchView: View {
                             .padding(.bottom)
                             .offset(y: 15)
                             HStack {
-                                Text(data.searchResults.count.description + " Resultate")
+                                Text(searchResults.searchResults.count.description + " Resultate")
                                     .font(.custom("DMSans-Regular", size: 15))
                                     .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                                     .padding(.leading, 6)
                                 Spacer()
                             }
-                            MapView(flats: $data.searchResults)
+                            MapView(flats: $searchResults.searchResults)
                                 .frame(height: 300)
                                 .padding(.bottom)
                             HStack {
@@ -55,11 +55,10 @@ struct SearchView: View {
                                     .foregroundColor(Color(.black))
                                 Spacer()
                             }
-                            ForEach(data.searchResults){ flat in
+                            ForEach(searchResults.searchResults){ flat in
                                 NavigationLink(destination: DetailView(flat: flat)) {
                                     CardView(flat: flat)
                                 }
-                                
                             }
                         }
                     }.background(Color(red: 0.958, green: 0.958, blue: 0.958))
@@ -67,6 +66,8 @@ struct SearchView: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.top)
             }.padding(.leading).padding(.trailing)
+            .navigationBarTitle("Suche", displayMode: .inline)
+            .navigationBarHidden(true)
         }
     }
 }

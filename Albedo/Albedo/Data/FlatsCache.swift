@@ -7,17 +7,17 @@
 
 import Foundation
 
-//class FlatsCache {
-//    static var flats = Set<Flat>()
-//
-//    static func add(_ flat: Flat){
-//        if flats.contains(flat) {
-//            flats.update(with: flat)
-//            print("Cache updated")
-//        }else{
-//            flats.insert(flat)
-//            print("Cache erweitert")
-//        }
-//    }
-//}
+class FlatsCache {
+    static var flats : [Flat] = []
+
+    static func add(_ flat: Flat){
+        if let index = flats.firstIndex(of: flat){
+            flats[index] = flat
+//            print("Replaced in Cache")
+        }else{
+            flats.append(flat)
+//            print("Added to Cache")
+        }
+    }
+}
  
