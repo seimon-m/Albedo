@@ -84,6 +84,7 @@ struct DatingView: View {
             }
         }
         .padding()
+        .background(Color("LightGrey"))
     }
     
     func swipeHandler(flat: Flat) {
