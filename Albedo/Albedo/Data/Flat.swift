@@ -8,9 +8,11 @@
 import Foundation
 import CoreLocation
 
-struct Flat : Identifiable {
+struct Flat : Hashable, Identifiable  {
     
-    let id = UUID()
+    var id : String {
+        return url
+    }
     
     let url: String
     
@@ -64,5 +66,13 @@ struct Flat : Identifiable {
                 favorites.removeFavorite(url: self.url)
             }
         }
+    }
+    
+    static func == (lhs: Flat, rhs: Flat) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
     }
 }
