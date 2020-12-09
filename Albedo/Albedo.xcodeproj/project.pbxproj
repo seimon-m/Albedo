@@ -25,6 +25,7 @@
 		DD776FBE2573D17300242BD4 /* DMSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */; };
 		DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC2257507BA00242BD4 /* FilterView.swift */; };
 		DD776FC625752A2400242BD4 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD776FC525752A2400242BD4 /* Favorites.swift */; };
+		DDBB0E5E25804922002ADC38 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB0E5D25804922002ADC38 /* SearchBar.swift */; };
 		DDC37A8C257E98B1002C8124 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC37A8B257E98B1002C8124 /* FavoritesView.swift */; };
 		DDC37A93257EEFA8002C8124 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC37A92257EEFA8002C8124 /* Geocoder.swift */; };
 		DDC37A97257EFE71002C8124 /* FlatsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC37A96257EFE71002C8124 /* FlatsCache.swift */; };
@@ -64,6 +65,7 @@
 		DD776FB82573D17300242BD4 /* DMSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Italic.ttf"; sourceTree = "<group>"; };
 		DD776FC2257507BA00242BD4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		DD776FC525752A2400242BD4 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		DDBB0E5D25804922002ADC38 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		DDC37A8B257E98B1002C8124 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		DDC37A92257EEFA8002C8124 /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		DDC37A96257EFE71002C8124 /* FlatsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatsCache.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				F4B3BE522569942F00D93D27 /* MapView.swift */,
 				DD720383256BF8020002F11C /* SearchView.swift */,
 				DD776FC2257507BA00242BD4 /* FilterView.swift */,
+				DDBB0E5D25804922002ADC38 /* SearchBar.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				DD72037E256B171F0002F11C /* ScrapingView.swift in Sources */,
 				DD72038E256C88190002F11C /* Flat.swift in Sources */,
 				DD720384256BF8020002F11C /* SearchView.swift in Sources */,
+				DDBB0E5E25804922002ADC38 /* SearchBar.swift in Sources */,
 				F4B3BE532569942F00D93D27 /* MapView.swift in Sources */,
 				DDC3A53E256DBEF100CADA32 /* CardView.swift in Sources */,
 				DD776FC3257507BB00242BD4 /* FilterView.swift in Sources */,
