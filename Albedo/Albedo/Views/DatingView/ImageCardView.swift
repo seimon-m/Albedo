@@ -17,10 +17,11 @@ struct ImageCardView: View {
                 let url = URL(string: flat.highResImageURLs[0])!
                 AsyncImage(url: url)
                     .conditionalModifier(direction == .right) {
-                        $0.colorMultiply(Color("Green"))
+                        $0.colorMultiply(Color(red: 0.000, green: 0.749, blue: 0.514, opacity: 0.5))
+                        
                     }
                     .conditionalModifier(direction == .left) {
-                        $0.colorMultiply(Color("Blue"))
+                        $0.colorMultiply(Color(red: 0.314, green: 0.608, blue: 0.961, opacity: 0.5))
                     }
                     .frame(width: 350 ,height: 300)
                     .cornerRadius(15)
@@ -47,15 +48,12 @@ struct ImageCardView: View {
 }
 
 extension View {
-    // 1 Create a ViewBuilder function that can be applied to any type of content conforming to view
-  @ViewBuilder func conditionalModifier<Content: View>(_ condition: Bool,
-                                                       transform: (Self) -> Content) -> some View {
+  @ViewBuilder func conditionalModifier<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+    
     if condition {
-        // 2 If condition matches, apply the transform
-      transform(self)
+        transform(self)
     } else {
-      // 3 If not, just return the original view
-      self
+        self
     }
   }
 }

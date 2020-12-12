@@ -55,6 +55,7 @@ struct DatingView: View {
                 .frame(width: 350, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .zIndex(2.0)
                 HStack {
+                    Spacer()
                     VStack {
                         Image("arrow_left")
                             .resizable()
@@ -64,19 +65,22 @@ struct DatingView: View {
                             .font(.custom("DMSans-Regular", size: 16))
                             .foregroundColor(Color("Blue"))
                     }
+                    .frame(width: 180)
                     
-                    Spacer()
+                    Spacer(minLength: 30)
                     VStack {
                         Image("arrow_right")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        Text("Zu den Favoriten")
+                        Text("Swipe zu Favoriten")
                             .font(.custom("DMSans-Regular", size: 16))
                             .foregroundColor(Color("Green"))
                     }
+                    .frame(width: 180)
+                    Spacer()
                 }
-                .offset(y: -150)
+                .offset(y: -180)
                 .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 Spacer()
             } else {
