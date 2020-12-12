@@ -49,7 +49,7 @@ struct DetailView: View {
                             .frame(height: 14)
                         Text(flat.place)
                             .lineLimit(1)
-                            .font(.custom("DMSans-Regular", size: 15))
+                            .font(.custom("DMSans-Regular", size: 16))
                             .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                     }.padding(0)
                     HStack {
@@ -60,7 +60,7 @@ struct DetailView: View {
                                 .frame(width: 18, height: 18)
                             Text(flat.getStartDateString())
                                 .lineLimit(1)
-                                .font(.custom("DMSans-Bold", size: 16))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
                                 .frame(width: 190, alignment: .leading)
                                 
@@ -72,7 +72,7 @@ struct DetailView: View {
                                 .frame(width: 18, height: 18)
                             Text(flat.termination)
                                 .lineLimit(1)
-                                .font(.custom("DMSans-Bold", size: 16))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
                         }
                         
@@ -81,7 +81,7 @@ struct DetailView: View {
                     VStack(alignment: .leading) {
                         Group {
                             Text("Beschreibung")
-                                .font(.custom("DMSans-Bold", size: 14))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
                             Spacer(minLength: 5)
                             Text(flat.roomDescription)
@@ -90,7 +90,7 @@ struct DetailView: View {
                         }
                         Group {
                             Text("Wir sind:")
-                                .font(.custom("DMSans-Bold", size: 14))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
                             Spacer(minLength: 5)
                             Text(flat.aboutUsDescription)
@@ -99,7 +99,7 @@ struct DetailView: View {
                         }
                         Group {
                             Text("Wir suchen:")
-                                .font(.custom("DMSans-Bold", size: 14))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
                             Spacer(minLength: 5)
                             Text(flat.aboutYouDescription)
@@ -108,17 +108,20 @@ struct DetailView: View {
                         Spacer(minLength: 40)
                         Group {
                             Text("Lage")
-                                .font(.custom("DMSans-Bold", size: 14))
+                                .font(.custom("DMSans-Bold", size: 18))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue:0.4))
+                            Spacer(minLength: 5)
+                            Text(flat.adress)
+                                .font(.custom("DMSans-Regular", size: 16))
                         }
                     }
                 }
                 .padding()
-                
+                Spacer(minLength: 30)
                 VStack(alignment: .center) {
-                    DetailMapView(flats: [self.flat])
-                        .frame(height: 300)
-                        .padding(.bottom)
+//                    DetailMapView(flats: [self.flat])
+//                        .frame(height: 300)
+//                        .padding(.bottom)
                     Button(action: {
                         openURL(URL(string: flat.url)!)
                     }) {
@@ -129,7 +132,7 @@ struct DetailView: View {
                             .font(.custom("DMSans-Regular", size: 16))
                             .cornerRadius(20)
                     }
-                    HStack{}.frame(width: 40, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    HStack{}.frame(width: 40, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
             }
             .frame(alignment: .top)

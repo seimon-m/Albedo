@@ -280,6 +280,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = F4B3BE30256970C400D93D27;
 			packageReferences = (
@@ -486,7 +487,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hslu.ios.Albedo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -508,7 +509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hslu.ios.Albedo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
