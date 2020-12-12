@@ -49,9 +49,10 @@ struct TabBar: View {
                             .offset(y: self.tabItems.items[i].offset)
                             .frame(width: 80)
                         }
-            }
-            .edgesIgnoringSafeArea(.all)
-           }
+                    }
+                    .edgesIgnoringSafeArea(.all)
+                }
+                .offset(y: 35.0)
         }
     }
 }
