@@ -19,26 +19,18 @@ struct TabBar: View {
         CGFloat(tabItems.items.count)
     }
     var spacing: CGFloat {
-        (UIScreen.main.bounds.width - (iconFrame * tabItemCount)) / (tabItemCount + 1)
-    }
-    var firstCenter: CGFloat {
-         spacing + iconFrame/2
-    }
-    var stepperToNextCenter: CGFloat {
-        spacing + iconFrame //half of 1 and half of next
+        (UIScreen.main.bounds.width - (iconFrame * tabItemCount)) / (tabItemCount * 2)
     }
     var body: some View {
         VStack {
             Spacer()
                 ZStack {
-                    Bar(tabItems: tabItems,
-                        firstCenter: firstCenter,
-                        stepperToNextCenter: stepperToNextCenter)
+                    Bar(tabItems: tabItems)
                         .foregroundColor(.white)
-                        .frame(width: UIScreen.main.bounds.width, height: 70)
+                        .frame(width: UIScreen.main.bounds.width, height: 80)
                     HStack(spacing: spacing) {
                         ForEach(0..<tabItems.items.count, id: \.self) { i in
-                            ZStack {
+                            VStack {
                                 Image(self.tabItems.items[i].imageName)
                                     .resizable()
                                     .foregroundColor(Color.gray)
@@ -52,9 +44,10 @@ struct TabBar: View {
                                             self.tabItems.select(i)
                                         }
                                     }
-                                Text(self.tabItems.items[i].name).offset(y: 25.0).foregroundColor(Color("Grey")).font(.custom("DMSans-Regular", size: 15))
+                                Text(self.tabItems.items[i].name).foregroundColor(Color("Grey")).font(.custom("DMSans-Regular", size: 15))
                             }
                             .offset(y: self.tabItems.items[i].offset)
+                            .frame(width: 80)
                         }
             }
             .edgesIgnoringSafeArea(.all)
@@ -66,31 +59,17 @@ struct TabBar: View {
 
 struct Bar: Shape {
     @ObservedObject var tabItems: TabItems
-    var tab: CGFloat
-    let firstCenter: CGFloat
-    let stepperToNextCenter: CGFloat
     
-    init(tabItems: TabItems, firstCenter: CGFloat, stepperToNextCenter: CGFloat) {
+    init(tabItems: TabItems) {
         self.tabItems = tabItems
-        self.tab = tabItems.selectedTabIndex
-        self.firstCenter = firstCenter
-        self.stepperToNextCenter = stepperToNextCenter
-    }
-    
-    var animatableData: Double {
-        get { return Double(tab) }
-        set { tab = CGFloat(newValue) }
     }
     
     func path(in rect: CGRect) -> Path {
-        let tabCenter = firstCenter + stepperToNextCenter * (tab - 1)
         return Path { p in
             p.move(to: CGPoint(x: rect.minX, y: rect.minY))
             p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
             p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
             p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-            p.addLine(to: CGPoint(x: tabCenter + 50, y: rect.minY))
-            p.addLine(to: CGPoint(x: rect.maxX - tabCenter, y: rect.minY))
         }
     }
 }
@@ -99,7 +78,7 @@ class TabItem: Identifiable {
     let id = UUID()
     let imageName: String
     let name: String
-    var offset: CGFloat = -20
+    var offset: CGFloat = -10
     var opacity: Double = 1
     
     init(imageName: String, offset: CGFloat, name: String) {
@@ -117,7 +96,7 @@ class TabItems: ObservableObject {
 
     @Published var items: [TabItem] = [
         TabItem(imageName: "dating", name: "WG-Match"),
-        TabItem(imageName: "suche", offset: -35, name: "Suche"),
+        TabItem(imageName: "suche", offset: -25, name: "Suche"),
         TabItem(imageName: "profil", name: "Profil"),
     ]
     
@@ -127,19 +106,19 @@ class TabItems: ObservableObject {
         let tabItem = items[index]
         
         tabItem.opacity = 0
-        tabItem.offset = 20
+        tabItem.offset = 10
         
         withAnimation(Animation.easeInOut) {
             selectedTabIndex = CGFloat(index + 1)
             for i in 0..<items.count {
                 if i != index {
-                    items[i].offset = -20
+                    items[i].offset = -10
                 }
             }
         }
         withAnimation(Animation.easeOut(duration: 0.25).delay(0.25)) {
             tabItem.opacity = 1
-            tabItem.offset = -35
+            tabItem.offset = -25
         }
     }
 }
