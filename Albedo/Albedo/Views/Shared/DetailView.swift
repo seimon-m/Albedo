@@ -13,21 +13,21 @@ struct DetailView: View {
     @State var flat: Flat
     @Environment(\.openURL) var openURL
 
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .center) {
                 ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
                     if(flat.hasImages){
                         ImageGalleryView(images: flat.highResImageURLs)
-                            .scaledToFill()
-                            .frame(width: 350, height: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                        Spacer(minLength: 50)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 300, alignment: .top)
+                            
                     }else{
                         Image("noPicturePlaceholder")
                             .resizable()
-                            .scaledToFill()
-                            .frame(height: 200)
+                            .scaledToFit()
+                            .frame(height: 300, alignment: .top)
                             .clipped()
                     }
                     LikeButton(flat: $flat)
@@ -119,9 +119,6 @@ struct DetailView: View {
                 .padding()
                 Spacer(minLength: 30)
                 VStack(alignment: .center) {
-//                    DetailMapView(flats: [self.flat])
-//                        .frame(height: 300)
-//                        .padding(.bottom)
                     Button(action: {
                         openURL(URL(string: flat.url)!)
                     }) {
