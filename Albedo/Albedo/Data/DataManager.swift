@@ -65,6 +65,8 @@ class DataManager: ObservableObject {
     }
     
     func startQuery(parameters: QueryParameters)  {
+        self.searchResults = []
+        
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
         
         AF.request(baseURL, parameters: parameters)
@@ -190,6 +192,12 @@ class DataManager: ObservableObject {
             }catch{
                 print("Couldn't parse html of " + flatURL)
             }
+        }
+    }
+    
+    func forceUpdate(){
+        if(searchResults.count > 0){
+            self.searchResults[0] = self.searchResults[0]
         }
     }
     

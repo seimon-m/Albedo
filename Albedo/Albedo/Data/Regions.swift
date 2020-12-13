@@ -14,7 +14,8 @@ class Regions{
     
     // Koordinaten z.B. über diese Webseite bestimmen https://www.latlong.net/
     private let regions : [Region] =
-        [Region(searchStrings: ["luzern", "sursee"], queryKey: "luzern", centerCoordinate: CLLocationCoordinate2DMake(47.050167, 8.309307), regionRadius: 3000)]
+        [Region(searchStrings: ["luzern", "sursee"], queryKey: "luzern", centerCoordinate: CLLocationCoordinate2DMake(47.050167, 8.309307), areaSize: 4000),
+         Region(searchStrings: ["schaffhausen"], queryKey: "schaffhausen", centerCoordinate: CLLocationCoordinate2DMake(47.696785,8.633417), areaSize: 4000)]
     
     func getRegion(searchString: String) -> Region? {
         let str = searchString.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -31,10 +32,10 @@ struct Region {
     let searchStrings : [String]
     let queryKey : String
     let centerCoordinate : CLLocationCoordinate2D // Mittelpunkt von Übersichtskarte eines Ortes
-    let regionRadius : Double // Radius in Metern wieviel Gebiet um Mittelpunkt herum angezeigt wird
+    let areaSize : Double // Breite der Karte in Metern wieviel Gebiet rundherum Mittelpunkt herum angezeigt wird
     
-    func getRegion() -> MKCoordinateRegion {
+    func getCoordRegion() -> MKCoordinateRegion {
         return MKCoordinateRegion(center: self.centerCoordinate,
-                                  latitudinalMeters: self.regionRadius, longitudinalMeters: self.regionRadius)
+                                  latitudinalMeters: self.areaSize, longitudinalMeters: self.areaSize)
     }
 }
