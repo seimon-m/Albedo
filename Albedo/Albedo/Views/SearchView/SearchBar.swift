@@ -6,17 +6,31 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct SearchBar: View {
+    @Binding var region : Region?
     @State var showingFilterView = false
-    @State var searchText : String = ""
+    @State var searchText : String = "Luzern"
     
     let dataManager = DataManager.shared
     
     var body: some View {
         HStack {
-            TextField("Suchen", text: $searchText)
-                .font(.custom("DMSans-Regular", size: 18))
+            TextField("Suchen", text: $searchText, onCommit: {
+                
+                print("Start Search, String: " + searchText)
+                self.region = Regions.getRegion(searchString: searchText)
+                print("Replaced Region")
+                print(self.region)
+                var params = DataManager.QueryParameters()
+                params.state = region?.queryKey ?? ""
+                
+                dataManager.resetQuery()
+                dataManager.startQuery(parameters: params)
+            })
+            .font(.custom("DMSans-Regular", size: 18))
+                
             Spacer()
             Button(action: {
                 showingFilterView.toggle()
@@ -39,7 +53,9 @@ struct SearchBar: View {
 }
 
 struct SearchBar_Previews: PreviewProvider {
+    @State static var region : Region? = Regions.defaultRegion
+  
     static var previews: some View {
-        SearchBar()
+        SearchBar(region: $region)
     }
 }

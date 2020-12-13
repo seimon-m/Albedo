@@ -41,12 +41,10 @@ class DataManager: ObservableObject {
     
     
     private init() {
-        NSLog("Before Query")
-        
+        // Deomonstration Purposes: Standardmässig Query für Luzern starten
         var params = QueryParameters()
         params.state = "luzern"
         startQuery(parameters: params)
-        
     }
     
     struct QueryParameters: Encodable {
@@ -63,9 +61,15 @@ class DataManager: ObservableObject {
         var wgStartSearch = true
         var start = 0
     }
+        
+    func resetQuery(){
+        self.searchResults = []
+        self.loadingComplete = false
+        self.totalResults = Int.max
+        stopGeocoding()
+    }
     
     func startQuery(parameters: QueryParameters)  {
-        self.searchResults = []
         
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
         
@@ -90,6 +94,7 @@ class DataManager: ObservableObject {
                         .clean(remove: [rmvBefore, rmvAfter, " "])
                     DispatchQueue.main.async {
                         self.totalResults = Int(foundStr)!
+                        print("totalResults: " + self.totalResults.description)
                     }
                     
                     // Alle Links raussuchen und Parsing der WGs starten
@@ -98,16 +103,19 @@ class DataManager: ObservableObject {
                         let flatURL = try "https://www.wgzimmer.ch" + links[i].attr("href")
                         
                         self.loadFlatData(flatURL: flatURL){ flat in
-                            self.searchResults.append(flat)
-                            FlatsCache.add(flat)
-                            print(self.searchResults.count)
-                
-                            if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
-                                self.startGeocoding()
-                            }
-                            if(self.searchResults.count >= self.totalResults){
-                                self.loadingComplete = true
-                                self.startGeocoding()
+                            DispatchQueue.main.async {
+                                self.searchResults.append(flat)
+                                FlatsCache.add(flat)
+                                print(self.searchResults.count)
+                                
+                                if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
+                                    self.startGeocoding()
+                                }
+                                if(self.searchResults.count >= self.totalResults){
+                                    self.loadingComplete = true
+                                    print("Loading has completed")
+                                    self.startGeocoding()
+                                }
                             }
                         }
                     }
@@ -116,6 +124,7 @@ class DataManager: ObservableObject {
                         var params = parameters
                         params.start += 39
                         self.startQuery(parameters: params)
+                        
                     }
                 }catch{
                     print("Couldn't parse html of query: ")

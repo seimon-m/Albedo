@@ -1,9 +1,11 @@
 import SwiftUI
+import MapKit
 
 struct SearchView: View {
     @ObservedObject var data = DataManager.shared
     @ObservedObject var favorites = Favorites.shared
-   
+    @State var region : Region? = Regions.defaultRegion
+    @State var currentCoordRegion : MKCoordinateRegion?
     
     var body: some View {
         NavigationView {
@@ -21,7 +23,10 @@ struct SearchView: View {
                                     .padding(.leading, 6)
                                 Spacer()
                             }
-                            MapView(flats: $data.searchResults)
+                            MapView(coordRegion: .init(
+                                        get: {region?.coordRegion ?? Regions.defaultRegion.coordRegion },
+                                        set: {region?.coordRegion = $0}),
+                                    flats: $data.searchResults)
                                 .frame(height: 300)
                                 .padding(.bottom)
                             HStack {
@@ -44,7 +49,7 @@ struct SearchView: View {
                 .padding(.leading)
                 .padding(.trailing)
                 
-                SearchBar()
+                SearchBar(region: self.$region)
                 .padding(.leading)
                 .padding(.trailing)
                 .padding(.bottom)
