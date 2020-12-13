@@ -4,7 +4,7 @@ import MapKit
 struct SearchView: View {
     @ObservedObject var data = DataManager.shared
     @ObservedObject var favorites = Favorites.shared
-    @State var region : Region? = Regions.defaultRegion
+    @State var region : Region = Regions.defaultRegion
     @State var currentCoordRegion : MKCoordinateRegion?
     
     var body: some View {
@@ -24,8 +24,8 @@ struct SearchView: View {
                                 Spacer()
                             }
                             MapView(coordRegion: .init(
-                                        get: {region?.coordRegion ?? Regions.defaultRegion.coordRegion },
-                                        set: {region?.coordRegion = $0}),
+                                        get: {region.coordRegion },
+                                        set: {region.coordRegion = $0}),
                                     flats: $data.searchResults)
                                 .frame(height: 300)
                                 .padding(.bottom)

@@ -204,12 +204,6 @@ class DataManager: ObservableObject {
         }
     }
     
-    func forceUpdate(){
-        if(searchResults.count > 0){
-            self.searchResults[0] = self.searchResults[0]
-        }
-    }
-    
     private func parseImgIdFromScript (script : String) -> String {
         
         let leftString = """

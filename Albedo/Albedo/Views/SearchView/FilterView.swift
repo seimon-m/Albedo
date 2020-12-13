@@ -10,9 +10,15 @@ import SwiftUI
 struct FilterView: View {
     
     @Binding var isPresented : Bool
-    @State var perpetualToggle = false
-    @State var dateToggle = false
-    @State var maxPrice : Double = 1500
+    
+
+    @Binding var dateOn : Bool
+    @Binding var date : Date
+    @Binding var perpetualOn : Bool
+    @Binding var maxPrice : Double
+    
+    var callback: (() -> Void)
+ 
     
     var body: some View {
         ZStack {
@@ -25,6 +31,7 @@ struct FilterView: View {
                     Spacer()
                     Button(action: {
                         self.isPresented.toggle()
+                        callback()
                     }) {
                         Image("approve")
                             .resizable()
@@ -35,21 +42,23 @@ struct FilterView: View {
                 
                 Form {
                     Section {
-                        Toggle(isOn: $dateToggle) {
+                        Toggle(isOn: $dateOn) {
                             Text("Einzugsdatum")
                                 .font(.custom("DMSans-Medium", size: 20))
                                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                         }
                         
-                        DatePicker("Verfügbar ab", selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, displayedComponents: [.date])
+                        DatePicker("Verfügbar ab",
+                                   selection: $date,
+                                   displayedComponents: [.date])
                             .font(.custom("DMSans-Regular", size: 16))
-                            .foregroundColor(dateToggle ? Color(red: 0.4, green: 0.4, blue: 0.4) : Color(red: 0.831, green: 0.831, blue: 0.831))
-                            .disabled(!dateToggle)
+                            .foregroundColor(dateOn ? Color(red: 0.4, green: 0.4, blue: 0.4) : Color(red: 0.831, green: 0.831, blue: 0.831))
+                            .disabled(!dateOn)
                         
                     }
                     Section {
                         HStack {
-                            Toggle(isOn: $perpetualToggle) {
+                            Toggle(isOn: $perpetualOn) {
                                 Text("Unbefristet")
                                     .font(.custom("DMSans-Medium", size: 20))
                                     .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
@@ -83,8 +92,13 @@ struct FilterView: View {
 struct FilterView_Previews: PreviewProvider {
     @State static var presentFilter : Bool = true
     
+    @State static var dateOn = false
+    @State static var date = Date()
+    @State static var perpetualOn = false
+    @State static var maxPrice : Double = 1500
+    
     static var previews: some View {
-        FilterView(isPresented: self.$presentFilter)
+        FilterView(isPresented: $presentFilter, dateOn: $dateOn, date: $date, perpetualOn: $perpetualOn, maxPrice: $maxPrice, callback: {print("")})
     }
 }
 

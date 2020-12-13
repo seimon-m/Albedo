@@ -9,25 +9,46 @@ import SwiftUI
 import CoreLocation
 
 struct SearchBar: View {
-    @Binding var region : Region?
+    @Binding var region : Region
     @State var showingFilterView = false
     @State var searchText : String = "Luzern"
     
+    @State var dateOn = false
+    @State var date = Date()
+    @State var perpetualOn = false
+    @State var maxPrice : Double = 1500
+    
     let dataManager = DataManager.shared
+    
+    func startSearch(){
+        let region = Regions.getRegion(searchString: searchText)
+        if(region != nil && dataManager.loadingComplete){
+            print("Start Search, String: " + searchText)
+            
+            self.region = region!
+            
+            var params = DataManager.QueryParameters()
+            
+            params.state = region!.queryKey
+            params.priceMax = Int(maxPrice)
+            
+            if(dateOn){
+                
+            }
+            
+            dataManager.resetQuery()
+            dataManager.startQuery(parameters: params)
+            
+           
+        } else{
+            print("Search string not found: " + searchText)
+        }
+    }
     
     var body: some View {
         HStack {
             TextField("Suchen", text: $searchText, onCommit: {
-                
-                print("Start Search, String: " + searchText)
-                self.region = Regions.getRegion(searchString: searchText)
-                print("Replaced Region")
-                print(self.region)
-                var params = DataManager.QueryParameters()
-                params.state = region?.queryKey ?? ""
-                
-                dataManager.resetQuery()
-                dataManager.startQuery(parameters: params)
+                self.startSearch()
             })
             .font(.custom("DMSans-Regular", size: 18))
                 
@@ -40,7 +61,10 @@ struct SearchBar: View {
                     .scaledToFit()
                     .frame(height: 28)
             }.sheet(isPresented: $showingFilterView) {
-                FilterView(isPresented: $showingFilterView)
+                FilterView(isPresented: $showingFilterView, dateOn: $dateOn, date: $date, perpetualOn: $perpetualOn, maxPrice: $maxPrice,
+                           callback: {
+                                self.startSearch()
+                           })
             }
             
         }
@@ -53,7 +77,7 @@ struct SearchBar: View {
 }
 
 struct SearchBar_Previews: PreviewProvider {
-    @State static var region : Region? = Regions.defaultRegion
+    @State static var region : Region = Regions.defaultRegion
   
     static var previews: some View {
         SearchBar(region: $region)
