@@ -31,7 +31,7 @@ struct DatingView: View {
                 Spacer(minLength: 150)
                 CardStack(
                   direction: LeftRight.direction,
-                    data: data.searchResults,
+                    data: data.getFilteredSearchResults(),
                   onSwipe: { card, direction in
                     print("Swiped \(card.place) to \(direction)")
                     if direction == .right {

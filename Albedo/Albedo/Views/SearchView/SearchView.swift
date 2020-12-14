@@ -13,11 +13,12 @@ struct SearchView: View {
                 Color(red: 0.958, green: 0.958, blue: 0.958).ignoresSafeArea()
                 VStack {
                     HStack {}.frame(height: 60)
+                    let filteredFlats = data.getFilteredSearchResults()
                     ScrollView(showsIndicators: false) {
                         LazyVStack{
                             HStack {}.frame(height: 54)
                             HStack {
-                                Text(data.searchResults.count.description + " Resultate")
+                                Text(filteredFlats.count.description + " Resultate")
                                     .font(.custom("DMSans-Regular", size: 15))
                                     .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                                     .padding(.leading, 6)
@@ -26,7 +27,9 @@ struct SearchView: View {
                             MapView(coordRegion: .init(
                                         get: {region.coordRegion },
                                         set: {region.coordRegion = $0}),
-                                    flats: $data.searchResults)
+                                    flats: .init(
+                                        get: {filteredFlats },
+                                        set: {print("MapView should not change Flats" + $0.description)}))
                                 .frame(height: 300)
                                 .padding(.bottom)
                             HStack {
@@ -35,7 +38,8 @@ struct SearchView: View {
                                     .foregroundColor(Color(.black))
                                 Spacer()
                             }
-                            ForEach(data.searchResults){ flat in
+                            
+                            ForEach(filteredFlats){ flat in
                                 NavigationLink(destination: DetailView(flat: flat)) {
                                     CardView(flat: flat)
                                         .padding(.bottom)

@@ -30,10 +30,13 @@ struct SearchBar: View {
             var params = DataManager.QueryParameters()
             
             params.state = region!.queryKey
+            params.permanent = perpetualOn ? "true" : "all"
             params.priceMax = Int(maxPrice)
             
             if(dateOn){
-                
+                dataManager.setFilterDate(date: date)
+            }else{
+                dataManager.deleteFilterDate()
             }
             
             dataManager.resetQuery()

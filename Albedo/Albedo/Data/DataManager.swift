@@ -33,6 +33,8 @@ class DataManager: ObservableObject {
     @Published var searchResults: [Flat] = []
     @Published var loadingComplete = false
     
+    private var filterDate : Date? = nil
+    
     var totalResults : Int = Int.max
     
     var geocodingTimer : Timer?
@@ -201,6 +203,23 @@ class DataManager: ObservableObject {
             }catch{
                 print("Couldn't parse html of " + flatURL)
             }
+        }
+    }
+    
+    func setFilterDate(date : Date){
+        self.filterDate = date
+    }
+    
+    func deleteFilterDate(){
+        self.filterDate = nil
+    }
+    
+    func getFilteredSearchResults() -> [Flat] {
+        
+        if(filterDate != nil){
+            return searchResults.filter{$0.startDate > self.filterDate!}
+        }else{
+            return searchResults
         }
     }
     
