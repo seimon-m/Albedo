@@ -51,7 +51,7 @@ class Favorites: ObservableObject {
     func updateFlats(){
         self.flats = []
         for url in likedFlatsURLs{
-            dataManager.loadFlatData(flatURL: url){ flat in
+            dataManager.loadFlatData(flatURL: url, parameters: DataManager.QueryParameters()){ flat, parameters in
                 self.flats.append(flat)
             }
         }

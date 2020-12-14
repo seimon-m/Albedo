@@ -22,7 +22,7 @@ struct SearchBar: View {
     
     func startSearch(){
         let region = Regions.getRegion(searchString: searchText)
-        if(region != nil && dataManager.loadingComplete){
+        if(region != nil){
             print("Start Search, String: " + searchText)
             
             self.region = region!
@@ -39,7 +39,6 @@ struct SearchBar: View {
                 dataManager.deleteFilterDate()
             }
             
-            dataManager.resetQuery()
             dataManager.startQuery(parameters: params)
             
            

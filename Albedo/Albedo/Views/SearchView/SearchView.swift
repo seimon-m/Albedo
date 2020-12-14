@@ -30,7 +30,7 @@ struct SearchView: View {
                                     flats: .init(
                                         get: {filteredFlats },
                                         set: {print("MapView should not change Flats" + $0.description)}))
-                                .frame(height: 300)
+                                .frame(height: 340)
                                 .padding(.bottom)
                             HStack {
                                 Text("Finde deine WG")

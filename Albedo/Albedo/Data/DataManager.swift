@@ -33,6 +33,7 @@ class DataManager: ObservableObject {
     @Published var searchResults: [Flat] = []
     @Published var loadingComplete = false
     
+    private var currentQuery : QueryParameters?
     private var filterDate : Date? = nil
     
     var totalResults : Int = Int.max
@@ -49,7 +50,7 @@ class DataManager: ObservableObject {
         startQuery(parameters: params)
     }
     
-    struct QueryParameters: Encodable {
+    struct QueryParameters: Encodable, Equatable {
         var query = ""
         var priceMin = 200
         var priceMax = 1500
@@ -62,16 +63,41 @@ class DataManager: ObservableObject {
         var startSearchMate = true
         var wgStartSearch = true
         var start = 0
-    }
         
-    func resetQuery(){
+        static func == (lhs: QueryParameters, rhs: QueryParameters) -> Bool {
+            return
+                lhs.query == rhs.query &&
+                lhs.priceMin == rhs.priceMin &&
+                lhs.priceMax == rhs.priceMax &&
+                lhs.state == rhs.state &&
+                lhs.permanent == rhs.permanent &&
+                lhs.student == rhs.student &&
+                lhs.country == rhs.country &&
+                lhs.orderBy == rhs.orderBy &&
+                lhs.orderDir == rhs.orderDir &&
+                lhs.startSearchMate == rhs.startSearchMate &&
+                lhs.wgStartSearch == rhs.wgStartSearch
+        }
+        
+        
+    }
+    
+    func startQuery(parameters: QueryParameters){
+        
+        if(parameters == self.currentQuery){ return }
+        
+        // Reset
+        self.currentQuery = parameters
         self.searchResults = []
         self.loadingComplete = false
         self.totalResults = Int.max
         stopGeocoding()
+        
+        // Start query
+        query(parameters: parameters)
     }
     
-    func startQuery(parameters: QueryParameters)  {
+    private func query(parameters: QueryParameters)  {
         
         let baseURL = "https://www.wgzimmer.ch/wgzimmer/search/mate.html"
         
@@ -104,19 +130,23 @@ class DataManager: ObservableObject {
                     for i in stride(from: 1, to: links.count, by: 2) {
                         let flatURL = try "https://www.wgzimmer.ch" + links[i].attr("href")
                         
-                        self.loadFlatData(flatURL: flatURL){ flat in
+                        self.loadFlatData(flatURL: flatURL, parameters: parameters){ flat, parameters in
                             DispatchQueue.main.async {
+                                
+                                // Return if query changed in the meantime (prevents concurrency errors)
+                                if(parameters != self.currentQuery){ return }
+                                
                                 self.searchResults.append(flat)
                                 FlatsCache.add(flat)
                                 print(self.searchResults.count)
                                 
                                 if(self.searchResults.count == DataManager.GEOCODING_BATCH_SIZE){
-                                    self.startGeocoding()
+                                    self.startGeocoding(queryParameters: parameters)
                                 }
                                 if(self.searchResults.count >= self.totalResults){
                                     self.loadingComplete = true
                                     print("Loading has completed")
-                                    self.startGeocoding()
+                                    self.startGeocoding(queryParameters: parameters)
                                 }
                             }
                         }
@@ -125,7 +155,7 @@ class DataManager: ObservableObject {
                     if(links.count == 78){
                         var params = parameters
                         params.start += 39
-                        self.startQuery(parameters: params)
+                        self.query(parameters: params)
                         
                     }
                 }catch{
@@ -135,12 +165,12 @@ class DataManager: ObservableObject {
             }
     }
     
-    func loadFlatData(flatURL: String, onFlatLoaded: @escaping (Flat) -> Void){
+    func loadFlatData(flatURL: String, parameters: QueryParameters, onFlatLoaded: @escaping (Flat, QueryParameters) -> Void){
         
         // Return directly if already in cache
         let flats = FlatsCache.flats.filter{$0.url == flatURL}
         if flats.count >= 1 {
-            onFlatLoaded(flats[0])
+            onFlatLoaded(flats[0], parameters)
             return
         }
 
@@ -198,7 +228,7 @@ class DataManager: ObservableObject {
                 let flat = Flat(url: flatURL, roomDescription: roomDescription, aboutUsDescription: aboutUsDescription, aboutYouDescription: aboutYouDescription, street: street, zip: zip, place: place, district: district, price: price, startDate: date, termination: termination, lowResImageURLs: lowResImgURLs, highResImageURLs: highResImgURLs)
                 
                 DispatchQueue.main.async {
-                    onFlatLoaded(flat)
+                    onFlatLoaded(flat, parameters)
                 }
             }catch{
                 print("Couldn't parse html of " + flatURL)
@@ -239,10 +269,14 @@ class DataManager: ObservableObject {
         return String(script[rangeOfTheData])
     }
     
-    private func startGeocoding(){
+    private func startGeocoding(queryParameters: QueryParameters){
         stopGeocoding()
-        geocodeBatch()
-        geocodingTimer = Timer.scheduledTimer(timeInterval: DataManager.GEOCODING_INTERVAL, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
+        geocodeBatch(queryParameters: queryParameters)
+//        geocodingTimer = Timer.scheduledTimer(timeInterval: DataManager.GEOCODING_INTERVAL, target: self, selector: #selector(geocodeBatch), userInfo: nil, repeats: true)
+        
+        self.geocodingTimer = Timer.scheduledTimer(withTimeInterval: DataManager.GEOCODING_INTERVAL, repeats: true) { timer in
+            self.geocodeBatch(queryParameters: queryParameters)
+        }
     }
     
     private func stopGeocoding(){
@@ -250,11 +284,11 @@ class DataManager: ObservableObject {
     }
     
     // Geocodes one Batch of 50 Adresses (50 is the maximum per minute)
-    @objc private func geocodeBatch(){
-        DispatchQueue.global(qos: .utility).async {
+    private func geocodeBatch(queryParameters: QueryParameters){
             
-            let missingCoords = self.searchResults.filter{$0.coordinate == nil}
-            print("Coords missing: " + missingCoords.count.description)
+        
+//            let missingCoords = self.searchResults.filter{$0.coordinate == nil}
+//            print("Coords missing: " + missingCoords.count.description)
                     
             
             var requestsCount = 0
@@ -276,6 +310,10 @@ class DataManager: ObservableObject {
                     }
                     
                     // Wird automatisch auf Main Thread ausgeführt...
+                    
+                    // Abbrechen falls Query in der Zwischenzeit gewechselt hat
+                    if(queryParameters != self!.currentQuery){ return }
+                    
                     self!.searchResults[i].coordinate = coord
                     FlatsCache.add(self!.searchResults[i])
                 }
@@ -284,6 +322,6 @@ class DataManager: ObservableObject {
             if(requestsCount == 0){
                 self.stopGeocoding()
             }
-        }
+        
     }
 }
